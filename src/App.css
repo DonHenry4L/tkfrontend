@@ -1,4 +1,7 @@
-.App {
+/* @import "~antd/dist/antd.css"; */
+/* import "bootstrap/dist/css/bootstrap.css"; */
+
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +38,92 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+/* NAVBAR STYLE */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+  height: 70px;
+  z-index: 1;
+  margin-top: -25px;
+
+  /* Animations */
+  transition-timing-function: ease-in;
+  transition: all 0.5s;
+}
+
+.chat ::-webkit-scrollbar {
+  width: 0px;
+}
+.chat ::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.281);
+}
+/* onHover */
+.chat ::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* profile image */
+/* .file-image {
+  display: flex;
+}
+.file-image .image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgb(199, 195, 195);
+  overflow: hidden;
+}
+
+.file-image .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.file-image .file {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-image .file .form-control {
+  display: none;
+}
+
+.file-image .file label {
+  background-color: #0a0e1585;
+  padding: 8px;
+  margin-bottom: 0px;
+  width: 120px;
+  text-align: center;
+  border-radius: 50px;
+  margin-left: 10px;
+  cursor: pointer;
+} */
+/* End profile image */
+
+/* Carousel */
+/* .carousel:hover {
+  background-color: transparent !important;
+}
+.legend:hover {
+  background-color: transparent !important;
+  color: blue !important;
+} */
+
+svg.star-svg {
+  display: inline;
+}
+
+/* Footer */
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }

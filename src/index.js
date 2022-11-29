@@ -1,14 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import ContextProviders from "./context";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import "./component/messenger/main.scss";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <>
+    <BrowserRouter>
+      <ContextProviders>
+        <ProSidebarProvider>
+          <App />
+        </ProSidebarProvider>
+      </ContextProviders>
+    </BrowserRouter>
+  </>
 );
 
 // If you want to start measuring performance in your app, pass a function
