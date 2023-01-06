@@ -1,12 +1,13 @@
-import { Button } from "antd";
+import { Button,Drawer, Space  } from "antd";
 import React, { useEffect, useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { BsChatFill, BsFillSunFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheme } from "../../hooks";
+import { useAuth,useTheme } from "../../hooks";
 import { WechatOutlined } from "@ant-design/icons";
 import { FaRocketchat } from "react-icons/fa";
 import { SiMessenger } from "react-icons/si";
+import { FiLogOut } from "react-icons/fi";
 // import AppSearchForm from "../form/AppSearchForm";
 
 export default function Header({
@@ -17,6 +18,17 @@ export default function Header({
 }) {
   const [showOptions, setShowOptions] = useState(false);
   const { toggleTheme } = useTheme();
+   const [open, setOpen] = useState(false);
+  const [placement, setPlacement] = useState('right');
+  const { authInfo, handleLogout } = useAuth();
+
+  const showDrawer = () => {
+    setOpen(true);
+  };
+
+  const onClose = () => {
+    setOpen(false);
+  };
 
   const navigate = useNavigate();
   const options = [
@@ -68,8 +80,37 @@ export default function Header({
           onClose={() => setShowOptions(false)}
           options={options}
         />
-      </div>
+
+         <Space>
+      <Button type="primary" onClick={showDrawer}>
+          Logout
+        </Button>
+      </Space>
     </div>
+      <Drawer
+        title="Click here to Logout"
+        placement={placement}
+        width={500}
+        onClose={onClose}
+        open={open}
+        extra={
+          <Space>
+            <Link
+            to="/"
+            onClick={handleLogout}
+            className="flex items-center dark:text-dark-subtle  text-sm hover:dark:text-white hover:blue-500 transition space-x-1 ml-20 mt-4"
+          >
+            <FiLogOut />
+            <Button>Log Out</Button>
+          </Link>
+          </Space>
+        }
+      >
+        <p>See you soon...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+      </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import client from "../api/client";
+import axios from "axios";
 
 const useLatestPosts = () => {
   // state
@@ -8,7 +8,7 @@ const useLatestPosts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const { data } = await client("/posts/1");
+        const { data } = await axios.get("/posts/1");
         setLatestPosts(data);
       } catch (err) {
         console.log(err);

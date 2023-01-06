@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button, Col, Image, Input, Modal, Row, Select } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+// import { UploadOutlined } from "@ant-design/icons";
 import "../../antdesign/style.css";
 import { useNavigate } from "react-router-dom";
-import client from "../../api/client";
+import axios from "axios";
 // import { MediaContext } from "../../context/Media";
 import { getToken } from "../../utils/helper";
 import { useNotification } from "../../hooks";
@@ -68,7 +68,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
   const loadCategories = async () => {
     try {
-      const { data } = await client("/categories");
+      const { data } = await axios.get("/categories");
       setLoadedCategories(data);
     } catch (err) {
       console.log(err);
@@ -83,7 +83,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
     const token = getToken();
 
     setLoading(true);
-    const { data } = await client.post(
+    const { data } = await axios.post(
       "/create-post",
       {
         title,
@@ -155,7 +155,8 @@ export default function NewPostComponent({ page = "admin", initialState }) {
           onClick={() => setMedia({ ...media, showMediaModal: true })}
           className="dark:bg-white dark:text-blue-500"
         >
-          <UploadOutlined /> Featured Image
+          {/* <UploadOutlined />  */}
+          Featured Image
         </Button>
 
         <h4 className="dark:text-white">Categories</h4>

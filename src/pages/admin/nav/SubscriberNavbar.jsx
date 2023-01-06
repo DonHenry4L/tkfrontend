@@ -66,7 +66,7 @@ export default function AdminNavbar({ rtl, toggled }) {
           <Link to="/" className="flex">
             <img
               src={authInfo.profile.picture}
-              alt="logo"
+              alt="profile pic"
               className="h-14 m-4 rounded-full"
             />
           </Link>
@@ -139,10 +139,49 @@ export default function AdminNavbar({ rtl, toggled }) {
           >
             {/* Profile */}
             <MenuItem
+              routerLink={<Link to={`user/profile`} />}
+              className={activeName(`user/profile`)}
+            >
+              Profile
+            </MenuItem>
+            {/* <MenuItem
               routerLink={<Link to={`/subscriber/${authInfo?.user?._id}`} />}
               className={activeName(`/subscriber/${authInfo?.user?._id}`)}
             >
               Profile
+            </MenuItem> */}
+          </SubMenu>
+        </Menu>
+        <p className="m-4 text-yellow-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-contain text-center flex justify-center">
+          SHOP
+        </p>
+        <Menu>
+          <SubMenu
+            suffix={
+              <div className="bg-red-600 rounded-full w-5 h-5 text-center">
+                <span className="badge yellow font-semibold">4</span>
+              </div>
+            }
+            label="My Products"
+            icon={<ImUsers />}
+          >
+            <MenuItem
+              routerLink={<Link to={`/user/my-orders`} />}
+              className={activeName(`/user/my-orders`)}
+            >
+              My Order(s)
+            </MenuItem>
+            {/* <MenuItem
+              routerLink={<Link to={`/user/order-details/:id`} />}
+              className={activeName(`/user/order-details/:id`)}
+            >
+              Order Details
+            </MenuItem> */}
+            <MenuItem
+              routerLink={<Link to={`/user/cart-details`} />}
+              className={activeName(`/user/cart-details`)}
+            >
+              Cart Details
             </MenuItem>
           </SubMenu>
         </Menu>

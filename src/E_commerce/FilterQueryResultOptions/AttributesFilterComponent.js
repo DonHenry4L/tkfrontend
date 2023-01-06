@@ -6,7 +6,7 @@ const AttributesFilterComponent = () => {
     <>
       {[{ color: ["red", "blue", "green"] }, { ram: ["1 TB", "2 TB"] }].map(
         (item, idx) => (
-          <div key={idx} className="mb-3">
+          <div key={idx} className="mb-3 ">
             <Form.Label>
               <b>{Object.keys(item)}</b>
             </Form.Label>

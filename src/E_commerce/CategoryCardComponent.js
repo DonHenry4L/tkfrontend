@@ -28,8 +28,8 @@ const CategoryCardComponent = ({ category, index }) => {
           <Link to="/product-list">
             <Button>View Product</Button>
           </Link>,
-          <EditOutlined key="edit" />,
-          <EllipsisOutlined key="ellipsis" />,
+          // <EditOutlined key="edit" />,
+          // <EllipsisOutlined key="ellipsis" />,
         ]}
       >
         <Meta

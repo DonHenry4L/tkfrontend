@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import client from "../api/client";
+import axios from "axios";
 
 const useCategory = () => {
   // state
@@ -8,7 +8,7 @@ const useCategory = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const { data } = await client("/categories");
+        const { data } = await axios.get("/categories");
         setCategories(data);
       } catch (err) {
         console.log(err);

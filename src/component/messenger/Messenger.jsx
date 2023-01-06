@@ -49,7 +49,7 @@ const Messenger = () => {
   const [hide, setHide] = useState(true);
 
   useEffect(() => {
-    socket.current = io("ws://localhost:9000");
+    socket.current = io("ws://localhost:5000");
     socket.current.on("getMessage", (data) => {
       setSocketMessage(data);
     });

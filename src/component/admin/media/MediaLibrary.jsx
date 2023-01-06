@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { CloseCircleOutlined, InboxOutlined } from "@ant-design/icons";
+// import { CloseCircleOutlined, InboxOutlined } from "@ant-design/icons";
 import { Badge, Image, message, Upload } from "antd";
 import { getToken } from "../../../utils/helper";
 import { MediaContext } from "../../../context/Media";
-import client from "../../../api/client";
+import axios from "axios";
 import { useNotification } from "../../../hooks";
 
 const { Dragger } = Upload;
@@ -18,7 +18,7 @@ export default function MediaLibrary() {
   const fetchMedia = async () => {
     const token = getToken();
     try {
-      const { data } = await client("/media", {
+      const { data } = await axios.get("/media", {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -37,7 +37,7 @@ export default function MediaLibrary() {
   const props = {
     name: "file",
     multiple: true,
-    action: `http://localhost:8000/upload-image-file`,
+    action: `http://localhost:5000/upload-image-file`,
     headers: {
       authorization: "Bearer " + token,
     },
@@ -65,7 +65,7 @@ export default function MediaLibrary() {
   const handleImageDelete = async (imageId) => {
     const token = getToken();
     try {
-      const { data } = await client.delete(`/media/${imageId}`, {
+      const { data } = await axios.delete(`/media/${imageId}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -87,7 +87,7 @@ export default function MediaLibrary() {
     <>
       <Dragger {...props} accept="image/*">
         <p className="ant-upload-drag-icon">
-          <InboxOutlined />
+          {/* <InboxOutlined /> */}
         </p>
         <p className="ant-upload-text">
           Click or drag file to this area to upload
@@ -111,10 +111,11 @@ export default function MediaLibrary() {
               }}
             />
             <br />
-            <CloseCircleOutlined
+            Delete will be set later
+            {/* <CloseCircleOutlined
               onClick={() => handleImageDelete(image._id)}
               style={{ marginRight: "10", color: "#f5222d" }}
-            />
+            /> */}
           </Badge>
         ))}
       </div>

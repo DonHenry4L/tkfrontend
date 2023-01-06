@@ -59,24 +59,24 @@ function App() {
           <Route path="/post/:slug" element={<SinglePostSlug />} />
           {/* E_Commerce */}
           <Route path="/shop" element={<HomePage />} />
-          <Route element={<RoutesWithUserChatComponent />}>
+          <Route element={<RoutesWithUserChatComponent admin={true}/>}>
             <Route path="/product-list" element={<ProductListPage />} />
-            <Route path="/product-details" element={<ProductDetailsPage />} />
+
             <Route
               path="/product-details/:id"
               element={<ProductDetailsPage />}
             />
             <Route path="/cart" element={<CartPage />} />
             {/* E_Commerce User Pages */}
-            <Route element={<ProtectedRoutesComponent />}>
+            {/* <Route element={<ProtectedRoutesComponent />}> */}
               <Route path="/user" element={<UserProfilePage />} />
               <Route path="/user/my-orders" element={<UserOrdersPage />} />
               <Route
                 path="/user/cart-details"
                 element={<UserCartDetailsPage />}
               />
-              <Route path="/user/order-details" element={<UserOrdersPage />} />
-            </Route>
+              {/* <Route path="/user/order-details" element={<UserOrdersPage />} /> */}
+            {/* </Route> */}
           </Route>
         </Routes>
       </>

@@ -1,5 +1,6 @@
 /* @import "~antd/dist/antd.css"; */
 /* import "bootstrap/dist/css/bootstrap.css"; */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
 
 /* .App {
   text-align: center;
@@ -127,3 +128,40 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+.edit__profile .form-control::placeholder {
+  color: #b6b3b3 !important;
+}
+
+.search_e {
+  background-color: #ffd900 !important;
+}
+
+.all_dropdown_e {
+  background-color: #0000ff !important;
+}
+
+.text__area textarea{
+resize: none;
+height: 50%;
+overflow: none !important;
+}
+
+.text__area textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.message__text {
+  word-wrap: break-word;
+  text-align: start;
+}
+
+.chat__time {
+  margin-top: -20px;
+}
+
+/* @media screen and (max-width: 480px) {
+  .signup_scroll {
+    overflow-y: scroll !important;
+  }
+} */

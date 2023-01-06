@@ -1,9 +1,9 @@
 import { Button, Col, Form, Input, List, Row } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { EditOutlined } from "@ant-design/icons";
+// import { EditOutlined } from "@ant-design/icons";
 import { FaEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import client from "../../api/client";
+import axios from "axios";
 import { getToken } from "../../utils/helper";
 import CategoryUpdateModal from "../modals/CategoryUpdateModal";
 
@@ -30,7 +30,7 @@ export default function Categories() {
     const token = getToken();
     try {
       setLoading(true);
-      const { data } = await client.post("/category", values, {
+      const { data } = await axios.post("/category", values, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -52,7 +52,7 @@ export default function Categories() {
     // console.log("Delete Category");
     const token = getToken();
     try {
-      const data = await client.delete(`/category/${item.slug}`, {
+      const data = await axios.delete(`/category/${item.slug}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -74,7 +74,7 @@ export default function Categories() {
   const handleUpdate = async (values) => {
     const token = getToken();
     try {
-      const { data } = await client.put(
+      const { data } = await axios.put(
         `/category/${updatingCategory.slug}`,
         values,
         {
@@ -105,7 +105,7 @@ export default function Categories() {
   const getCategories = async () => {
     const token = getToken();
     try {
-      const { data } = await client("/categories", {
+      const { data } = await axios.get("/categories", {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -125,7 +125,9 @@ export default function Categories() {
           <Form onFinish={onFinish} form={form}>
             <Form.Item name="name">
               <Input
-                prefix={<EditOutlined className="site-form-item-icon" />}
+              //   prefix={
+              //   <EditOutlined className="site-form-item-icon" />
+              // }
                 placeholder="Give it a name"
               />
             </Form.Item>

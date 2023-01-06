@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import {
   AppstoreOutlined,
-  CaretDownOutlined,
+  // CaretDownOutlined,
   MailOutlined,
   SettingOutlined,
-  SmileOutlined,
+  // SmileOutlined,
 } from "@ant-design/icons";
 import { GiShoppingCart } from "react-icons/gi";
 import { Button, Dropdown, Form, Input, Space, Menu, Badge } from "antd";
@@ -21,7 +21,7 @@ const category = (
       {
         key: "2",
         label: <Link>Cars</Link>,
-        icon: <SmileOutlined />,
+        // icon: <SmileOutlined />,
       },
       {
         key: "3",
@@ -43,7 +43,7 @@ const items = [
             <Space>
               <Button type="primary">
                 All
-                <CaretDownOutlined />
+                {/* <CaretDownOutlined /> */}
               </Button>
             </Space>
           </a>

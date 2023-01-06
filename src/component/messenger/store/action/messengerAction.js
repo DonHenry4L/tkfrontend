@@ -1,4 +1,4 @@
-import client from "../../../../api/client";
+import axios from "axios";
 import {
   FRIEND_GET_SUCCESS,
   MESSAGE_GET_SUCCESS,
@@ -14,7 +14,7 @@ export const getFriends = () => async (dispatch) => {
     // const config = {
 
     // };
-    const response = await client("/get-friends", {
+    const response = await axios.get("/get-friends", {
       headers: {
         authorization: "Bearer " + token,
       },
@@ -33,7 +33,7 @@ export const getFriends = () => async (dispatch) => {
 export const messageSend = (data) => async (dispatch) => {
   const token = getChatToken();
   try {
-    const response = await client.post("/send-message", data, {
+    const response = await axios.post("/send-message", data, {
       headers: {
         authorization: "Bearer " + token,
       },
@@ -53,7 +53,7 @@ export const getMessage = (id) => {
   return async (dispatch) => {
     const token = getChatToken();
     try {
-      const response = await client(`/get-message/${id}`, {
+      const response = await axios.get(`/get-message/${id}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -73,7 +73,7 @@ export const getMessage = (id) => {
 export const ImageMessageSend = (data) => async (dispatch) => {
   const token = getChatToken();
   try {
-    const response = await client.post("image-message-send", data, {
+    const response = await axios.post("image-message-send", data, {
       headers: {
         authorization: "Bearer " + token,
       },
@@ -92,7 +92,7 @@ export const ImageMessageSend = (data) => async (dispatch) => {
 export const seenMessage = (msg) => async (dispatch) => {
   const token = getChatToken();
   try {
-    const response = await client.post("/seen-message", msg, {
+    const response = await axios.post("/seen-message", msg, {
       headers: {
         authorization: "Bearer " + token,
       },
@@ -106,7 +106,7 @@ export const seenMessage = (msg) => async (dispatch) => {
 export const updateMessage = (msg) => async (dispatch) => {
   const token = getChatToken();
   try {
-    const response = await client.post("/delivered-message", msg, {
+    const response = await axios.post("/delivered-message", msg, {
       headers: {
         authorization: "Bearer " + token,
       },

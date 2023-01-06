@@ -97,7 +97,7 @@ export default function Navbar() {
           <div className="flex justify-between items-center">
             <Link to="/">
               <img
-                src="./logo192.png"
+                src=""
                 alt="TkSarl logo"
                 className="sm:h-10 h-8"
                 title="Go to Home"

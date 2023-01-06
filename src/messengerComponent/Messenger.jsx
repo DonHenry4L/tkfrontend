@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FaEllipsisH, FaEdit, FaSistrix } from "react-icons/fa";
-import client from "../api/client";
+import axios from "axios";
 // import { getFriends } from "../api/messenger/messenger";
 import { useAuth } from "../hooks";
 import { getToken } from "../utils/helper";
@@ -20,7 +20,7 @@ export default function Messenger() {
         authorization: "Bearer " + token,
       },
     };
-    const { data } = await client("/get-friends", config);
+    const { data } = await axios.get("/get-friends", config);
     setFriends(data.friends);
     console.log(friends);
   };

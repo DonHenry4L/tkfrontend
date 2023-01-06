@@ -1,4 +1,4 @@
-import { UploadOutlined } from "@ant-design/icons";
+// import { UploadOutlined } from "@ant-design/icons";
 import { Button, Upload, message } from "antd";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export default function UploadFile({
 
   const props = {
     name: "file",
-    action: `http://localhost:8000/upload-image-file`,
+    action: `http://localhost:5000/upload-image-file`,
     headers: {
       authorization: "Bearer " + token,
     },
@@ -43,7 +43,11 @@ export default function UploadFile({
   return (
     <>
       <Upload {...props} maxCount={1}>
-        <Button icon={<UploadOutlined />} className="dark:text-white">
+        <Button 
+        // icon={
+        // <UploadOutlined />
+        // } 
+        className="dark:text-white">
           Click to Upload
         </Button>
       </Upload>

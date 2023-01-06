@@ -1,5 +1,5 @@
 import moment from "moment";
-import React from "react";
+import React, { Fragment } from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -14,13 +14,18 @@ const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
               <div ref={scrollRef} className="my-message">
                 <div className="image-message">
                   <div className="my-text">
-                    <p className="message-text">
+                    <p
+                      className="message-text"
+                    >
                       {" "}
+                      <div style={{ maxWidth: "300px" }} className="message__text text-white">
                       {m.message.text === "" ? (
                         <img src={`./image/${m.message.image}`} />
                       ) : (
                         m.message.text
-                      )}{" "}
+                      )}
+                      </div>
+                      {" "}
                     </p>
 
                     {index === message.length - 1 &&
@@ -43,7 +48,7 @@ const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
                     )}
                   </div>
                 </div>
-                <div className="time">
+                <div className="time chat__time">
                   {moment(m.createdAt).startOf("mini").fromNow()}
                 </div>
               </div>
@@ -53,7 +58,7 @@ const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
                   <img src={`./image/${currentFriend.image}`} alt="" />
                   <div className="message-time">
                     <div className="fd-text ">
-                      <p className="message-text flex flex-wrap">
+                      <p className="message-text message__text" style={{ maxWidth: "300px" }}>
                         {" "}
                         {m.message.text === "" ? (
                           <img src={`./image/${m.message.image}`} />
@@ -62,7 +67,7 @@ const Message = ({ message, currentFriend, scrollRef, typingMessage }) => {
                         )}{" "}
                       </p>
                     </div>
-                    <div className="time">
+                    <div className="time chat__time">
                       {moment(m.createdAt).startOf("mini").fromNow()}
                     </div>
                   </div>

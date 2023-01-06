@@ -1,12 +1,11 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Button, Col, Input, List, Row } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { PlusOutlined } from "@ant-design/icons";
-import { Helmet } from "react-helmet";
+// import { PlusOutlined } from "@ant-design/icons";
 import { PostContext } from "../../../context/post";
 import { useAuth, useNotification } from "../../../hooks";
 import { getToken } from "../../../utils/helper";
-import client from "../../../api/client";
+import axios from "axios";
 import PostsList from "../../PostLists";
 
 export default function Posts() {
@@ -22,7 +21,7 @@ export default function Posts() {
   const fetchPosts = async () => {
     const token = getToken();
     try {
-      const { data } = await client("/posts-for-admin", {
+      const { data } = await axios.get("/posts-for-admin", {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -41,7 +40,7 @@ export default function Posts() {
     try {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
-      const { data } = await client.delete(`/post/${post._id}`, {
+      const { data } = await axios.delete(`/post/${post._id}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -66,13 +65,11 @@ export default function Posts() {
   return (
     <>
       <Row>
-        <Helmet>
-          <title>Tksarl | Posts</title>
-        </Helmet>
         <Col span={24}>
           <Button type="primary">
             <Link to="/admin/posts/new">
-              <PlusOutlined /> Add New
+              {/* <PlusOutlined />  */}
+              Add New
             </Link>
           </Button>
           <h1 style={{ marginTop: 15 }}>{posts?.length} Posts</h1>

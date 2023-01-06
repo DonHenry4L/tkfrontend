@@ -11,14 +11,13 @@ import {
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import client from "../../../api/client";
+import axios from "axios";
 import { useNotification } from "../../../hooks";
 import ReactQuill from "react-quill";
 import useCategory from "../../../hooks/useCategory";
 import useLatestPosts from "../../../hooks/useLatestPosts";
 import CommentForm from "../comment/CommentForm";
 import { getToken } from "../../../utils/helper";
-import { Helmet } from "react-helmet";
 import { getSinglePost } from "../../../api/post/SinglePost";
 
 const { Meta } = Card;
@@ -43,7 +42,7 @@ const SinglePost = ({ postComments }) => {
     const token = getToken();
     try {
       setLoading(true);
-      const { data } = await client.post(
+      const { data } = await axios.post(
         `/createComment/${post._id}`,
         {
           comment,
@@ -86,16 +85,16 @@ const SinglePost = ({ postComments }) => {
     );
   return (
     <Row className="dark:text-white">
-      <Helmet>
+      {/* <Helmet>
         <title>TkSarl | {post.title}</title>
         <meta description={post.content.substring(0, 160)} />
-      </Helmet>
+      </Helmet> */}
       <Col xs={24} xl={16}>
         <Card
           className="dark:bg-black dark:text-white"
           cover={
             <img
-              src={post?.featuredImage?.url || "/favicon.png"}
+              src={post?.featuredImage?.url || ""}
               alt={post.title}
               className="aspect-video  blur-none object-center text-white"
             />

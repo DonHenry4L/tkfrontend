@@ -20,16 +20,18 @@ function Banner() {
 
   return (
     <div>
+      <section className="header">
       <header
         className="banner"
         style={{
           backgroundSize: "cover",
-          //   backgroundImage: `url(${banner})`,
+            backgroundImage: `./image/banner.jpeg`,
           backgroundPosition: "center center",
         }}
       >
         <div className="banner__contents">
           <h1 className="banner__title">
+            TG FAMILY
             {/* {movie?.title || movie?.name || movie?.original_name} */}
           </h1>
           <div className="banner__buttons">
@@ -49,11 +51,13 @@ function Banner() {
           </div>
           <h1 className="banner__description">
             {/* {truncate(movie?.overview, 150)} */}
+            <p>Company Mission Statement goes here</p>
           </h1>
         </div>
 
         <div className="banner__fadeButton" />
       </header>
+      </section>
       <div className="pt-12 ">
         {/* <AppSearchForm
           placeholder="Search..."

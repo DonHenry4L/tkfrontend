@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import ContextProviders from "./context";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import "./css/bootstrap/bootstrap.css";
 
 import "./component/messenger/main.scss";
 

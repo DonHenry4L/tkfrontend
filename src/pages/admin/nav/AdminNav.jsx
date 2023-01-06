@@ -106,7 +106,7 @@ export default function AdminNavbar({ rtl, toggled }) {
         <Menu>
           <SubMenu
             suffix={
-              <div className="bg-red-600 rounded-full w-5 h-5 text-center">
+              <div className="bg-yellow-500 rounded-full w-5 h-5 text-center">
                 <span className="badge yellow font-semibold">2</span>
               </div>
             }
@@ -149,7 +149,7 @@ export default function AdminNavbar({ rtl, toggled }) {
           {/* Media */}
           <SubMenu
             suffix={
-              <div className="bg-red-600 rounded-full w-5 h-5 text-center">
+              <div className="bg-yellow-500 rounded-full w-5 h-5 text-center">
                 <span className="badge yellow font-semibold">2</span>
               </div>
             }
@@ -174,8 +174,8 @@ export default function AdminNavbar({ rtl, toggled }) {
         <Menu>
           <SubMenu
             suffix={
-              <div className="bg-red-600 rounded-full w-5 h-5 text-center">
-                <span className="badge yellow font-semibold">4</span>
+              <div className="bg-yellow-500 rounded-full w-5 h-5 text-center">
+                <span className="badge yellow font-semibold">5</span>
               </div>
             }
             label="Users"
@@ -192,6 +192,14 @@ export default function AdminNavbar({ rtl, toggled }) {
               routerLink={<Link to="/admin/users/new" />}
             >
               Add New
+            </MenuItem>
+
+            {/* Edit User */}
+            <MenuItem
+              className={activeName("/admin/edit-user")}
+              routerLink={<Link to="/admin/edit-user" />}
+            >
+              Edit Users
             </MenuItem>
 
             {/* Profile */}
@@ -214,23 +222,8 @@ export default function AdminNavbar({ rtl, toggled }) {
         <p className="m-4 text-yellow-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-contain text-center flex justify-center">
           E COMMERCE
         </p>
-        <Menu>
+        
           {/* E_COMMERCE ADMIN NAVBAR */}
-          <SubMenu label="Users" icon={<ImUsers />}>
-            <MenuItem
-              className={activeName("/admin/users")}
-              routerLink={<Link to="/admin/users" />}
-            >
-              Users
-            </MenuItem>
-            <MenuItem
-              className={activeName("/admin/edit-user")}
-              routerLink={<Link to="/admin/edit-user" />}
-            >
-              Edit Users
-            </MenuItem>
-          </SubMenu>
-        </Menu>
         <Menu>
           {/* Categories */}
           <SubMenu label="Categories" icon={<MdOutlineCategory />}>
@@ -258,18 +251,24 @@ export default function AdminNavbar({ rtl, toggled }) {
               Create Product
             </MenuItem>
 
-            <MenuItem
-              className={activeName("/admin/edit-product")}
-              routerLink={<Link to="/admin/edit-product" />}
+            {/* <MenuItem
+              className={activeName("/admin/edit-product/:id")}
+              routerLink={<Link to="/admin/edit-product/:id" />}
             >
               Edit Product
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
-              className={activeName("/admin/orders-details")}
-              routerLink={<Link to="/admin/orders-details" />}
+              className={activeName("/admin/orders")}
+              routerLink={<Link to="/admin/orders" />}
             >
               Orders
             </MenuItem>
+            {/* <MenuItem
+              className={activeName("/admin/order-details/:id")}
+              routerLink={<Link to="/admin/order-details/:id" />}
+            >
+              Order-Details
+            </MenuItem> */}
           </SubMenu>
         </Menu>
         <Menu>

@@ -2,7 +2,6 @@ import { Col, Row, Card, Avatar } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import client from "../../api/client";
 
 const { Meta } = Card;
 
@@ -10,7 +9,7 @@ const AllPost = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const { data } = await client("/posts");
+    const { data } = await axios.get("/posts");
     setPosts(data);
   };
 
@@ -21,7 +20,7 @@ const AllPost = () => {
   //   useEffect(() => {
   //     const interval = setInterval(() => {
   //       const fetchPosts = async () => {
-  //         const res = await client("/posts");
+  //         const res = await axios("/posts");
   //         const data = await res.json();
   //         setPosts(data);
   //       };
@@ -50,7 +49,7 @@ const AllPost = () => {
                 <Avatar
                   shape="square"
                   style={{ height: "200px" }}
-                  src={post.featuredImage?.url || "/favicon.png"}
+                  src={post.featuredImage?.url || ""}
                   alt={post.title}
                 />
               }

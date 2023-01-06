@@ -1,7 +1,32 @@
-import React from "react";
+import axios from "axios";
+import { getToken } from "../../../utils/helper";
+import CreateProductPageComponent from "./components/CreateProductPageComponent";
+import { uploadImagesApiRequest, uploadImagesCloudinaryApiRequest } from "./components/utils/utils";
 
-const AdminCreateProduct = () => {
-  return <div>AdminCreateProduct</div>;
+const createProductApiRequest = async (formInputs) => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.post(
+    "/products/admin",
+    { ...formInputs },
+    config
+  );
+  return data;
 };
 
-export default AdminCreateProduct;
+
+const AdminCreateProductPage = () => {
+  return (
+    <CreateProductPageComponent
+      createProductApiRequest={createProductApiRequest}
+      uploadImagesApiRequest={uploadImagesApiRequest}
+      UploadImagesCloudinaryApiRequest={uploadImagesCloudinaryApiRequest}
+    />
+  );
+};
+
+export default AdminCreateProductPage;

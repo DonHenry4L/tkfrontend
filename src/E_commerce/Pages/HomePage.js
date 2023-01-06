@@ -5,6 +5,7 @@ import CategoryCardComponent from "../CategoryCardComponent";
 import FooterComponent from "../FooterComponent";
 import ProductCarouselComponent from "../ProductCarouselComponent";
 
+
 const HomePage = () => {
   const categories = [
     "Tablets",
@@ -22,12 +23,8 @@ const HomePage = () => {
       <ProductCarouselComponent />
       <Row gutter={16}>
         {categories.map((category, index) => (
-          <Col>
-            <CategoryCardComponent
-              key={index}
-              category={category}
-              index={index}
-            />
+          <Col key={index}>
+            <CategoryCardComponent category={category} index={index} />
           </Col>
         ))}
       </Row>

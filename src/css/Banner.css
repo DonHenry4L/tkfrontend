@@ -1,3 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
+
+.header {
+  background: #33cccc;
+  width: 100%;
+  padding:60px 0;
+  text-align: center;
+  color: white;
+
+}
+
 .banner {
   color: white;
   object-fit: contain;
@@ -47,7 +58,7 @@
 }
 
 .banner__fadeButton {
-  height: 16.2rem;
+  height: 20.2rem;
   background-image: linear-gradient(
     180deg,
     transparent,

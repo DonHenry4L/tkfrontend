@@ -23,8 +23,14 @@ import AdminEditProduct from "../E_commerce/Pages/admin/AdminEditProduct";
 import AdminOrders from "../E_commerce/Pages/admin/AdminOrders";
 import AdminOrderDetails from "../E_commerce/Pages/admin/AdminOrderDetails";
 import AdminChat from "../E_commerce/Pages/admin/AdminChat";
-import AdminAnalitics from "../E_commerce/Pages/admin/AdminAnalitics";
+import AdminAnalyticsPage from "../E_commerce/Pages/admin/AdminAnalyticsPage";
 import Create_E_Category from "../E_commerce/Pages/admin/Create_E_Category";
+import HomePage from "../E_commerce/Pages/HomePage";
+import CartPage from "../E_commerce/Pages/CartPage";
+import UserCartDetailsPage from "../E_commerce/Pages/user/UserCartDetailsPage";
+import ProductListPage from "../E_commerce/Pages/ProductListPage";
+import ProductDetailsPage from "../E_commerce/Pages/ProductDetailsPage";
+import UserOrderDetailsPage from "../E_commerce/Pages/user/UserOrderDetailsPage";
 
 function AdminNavigator() {
   return (
@@ -64,14 +70,22 @@ function AdminNavigator() {
               path="/admin/create-category"
               element={<Create_E_Category />}
             />
-            <Route path="/admin/edit-product" element={<AdminEditProduct />} />
+            <Route path="/admin/edit-product/:id" element={<AdminEditProduct />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
             <Route
-              path="/admin/orders-details"
-              element={<AdminOrderDetails />}
+              path="/admin/order-details/:id"
+              element={<UserOrderDetailsPage />}
             />
             <Route path="/admin/chats" element={<AdminChat />} />
-            <Route path="/admin/analytics" element={<AdminAnalitics />} />
+            <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+            <Route path="/shop" element={<HomePage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
+            <Route path="/product-list" element={<ProductListPage />} />
+            <Route
+              path="/product-details/:id"
+              element={<ProductDetailsPage />}
+            />
           </Routes>
         </div>
       </div>

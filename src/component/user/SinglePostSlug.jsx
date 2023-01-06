@@ -12,12 +12,11 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import ReactQuill from "react-quill";
-import { Helmet } from "react-helmet";
 import { useNotification } from "../../hooks";
 import useCategory from "../../hooks/useCategory";
 import useLatestPosts from "../../hooks/useLatestPosts";
 import { getToken } from "../../utils/helper";
-import client from "../../api/client";
+import axios from "axios";
 import { getSinglePost } from "../../api/post/SinglePost";
 import CommentForm from "../admin/comment/CommentForm";
 
@@ -42,7 +41,7 @@ const SinglePostSlug = () => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const { data } = await client.post(`/createComment/${post._id}`, {
+      const { data } = await axios.post(`/createComment/${post._id}`, {
         comment,
       });
       // setComments([data, ...comments]);
@@ -77,10 +76,10 @@ const SinglePostSlug = () => {
     );
   return (
     <Row className="dark:text-white">
-      <Helmet>
+      {/* <Helmet>
         <title>Tksarl | {post.title}</title>
         <meta description={post.content.substring(0, 160)} />
-      </Helmet>
+      </Helmet> */}
       <Col xs={24} xl={16}>
         <Card
           className="dark:bg-black dark:text-white"

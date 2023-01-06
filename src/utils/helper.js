@@ -4,7 +4,7 @@ export const isValidEmail = (email) => {
   return isValid.test(email);
 };
 
-export const getToken = () => localStorage.getItem("auth-token");
+export const getToken = () => localStorage.getItem("userInfo");
 export const getChatToken = () => localStorage.getItem("authToken");
 
 export const catchError = (error) => {
