@@ -14,7 +14,7 @@ const fetchProducts = async (productId) => {
       authorization: "Bearer " + token,
     },
   };
-  const {data} = await axios.get(`/products/get-one/${productId}`, config)
+  const {data} = await axios.get(`/api/products/get-one/${productId}`, config)
   return data
 }
 
@@ -25,7 +25,7 @@ const updateProductApiRequest = async (productId, formInputs) => {
       authorization: "Bearer " + token,
     },
   };
-  const {data} = await axios.put(`/products/admin/${productId}`,{...formInputs},config)
+  const {data} = await axios.put(`/api/products/admin/${productId}`,{...formInputs},config)
   return data
 }
 
@@ -47,9 +47,9 @@ const imageDeleteHandler = async (imagePath, productId) => {
   };
   let encoded = encodeURIComponent(imagePath)
   if (process.env.NODE_ENV !== 'production'){ // to do: change to !==
-    await axios.delete(`/products/admin/image/${encoded}/${productId}`, config)
+    await axios.delete(`/api/products/admin/image/${encoded}/${productId}`, config)
   } else {
-    await axios.delete(`/products/admin/image/${encoded}/${productId}?cloudinary=true`, config)
+    await axios.delete(`/api/products/admin/image/${encoded}/${productId}?cloudinary=true`, config)
 
   }
 

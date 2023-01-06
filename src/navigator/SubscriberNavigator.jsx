@@ -43,7 +43,7 @@ const config = {
   },
 };
     try {
-      const { data } = await axios.get("/current-subscriber", config);
+      const { data } = await axios.get("/api/subscriber", config);
       console.log(data);
       setLoading(false);
     } catch (error) {

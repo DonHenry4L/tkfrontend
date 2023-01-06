@@ -18,7 +18,7 @@ export default function MediaLibrary() {
   const fetchMedia = async () => {
     const token = getToken();
     try {
-      const { data } = await axios.get("/media", {
+      const { data } = await axios.get("/api/post/media", {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -37,7 +37,7 @@ export default function MediaLibrary() {
   const props = {
     name: "file",
     multiple: true,
-    action: `http://localhost:5000/upload-image-file`,
+    action: `http://localhost:5000/api/post/upload-image-file`,
     headers: {
       authorization: "Bearer " + token,
     },

@@ -15,7 +15,7 @@ export default function UploadFile({
 
   const props = {
     name: "file",
-    action: `http://localhost:5000/upload-image-file`,
+    action: `http://localhost:5000/api/post/upload-image-file`,
     headers: {
       authorization: "Bearer " + token,
     },

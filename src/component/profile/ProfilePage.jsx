@@ -26,7 +26,7 @@ const config = {
   },
 };
   const { data } = await axios.put(
-    "/user/profile",
+    "/api/users/profile",
     {
       first_name,
       last_name,
@@ -52,7 +52,7 @@ const fetchUser = async (id) => {
   //     authorization: "Bearer " + token,
   //   },
   // };
-  const { data } = await axios.get("/user/profile/" + id, {
+  const { data } = await axios.get("/api/users/profile/" + id, {
     headers: {
       authorization: "Bearer " + token,
     },

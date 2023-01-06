@@ -30,7 +30,7 @@ export default function Categories() {
     const token = getToken();
     try {
       setLoading(true);
-      const { data } = await axios.post("/category", values, {
+      const { data } = await axios.post("/api/category", values, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -105,7 +105,7 @@ export default function Categories() {
   const getCategories = async () => {
     const token = getToken();
     try {
-      const { data } = await axios.get("/categories", {
+      const { data } = await axios.get("/api/category/categories", {
         headers: {
           authorization: "Bearer " + token,
         },

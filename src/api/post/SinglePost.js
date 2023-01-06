@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getSinglePost = async (id) => {
   try {
-    const { data } = await axios.get("/post/" + id);
+    const { data } = await axios.get("/api/post/" + id);
     return data;
   } catch (error) {
     return catchError(error);

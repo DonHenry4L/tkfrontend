@@ -12,7 +12,7 @@ const getOrder = async (id) => {
       authorization: "Bearer " + token,
     },
   };
-  const { data } = await axios.get("/userOrder/" + id, config);
+  const { data } = await axios.get("/api/orders/userOrder/" + id, config);
   return data;
 };
 
@@ -23,7 +23,7 @@ const markAsDelivered = async (id) => {
       authorization: "Bearer " + token,
     },
   };
-  const { data } = await axios.put("/orders/delivered/" + id, config);
+  const { data } = await axios.put("/api/orders/delivered/" + id, config);
   if (data) {
     return data;
   }

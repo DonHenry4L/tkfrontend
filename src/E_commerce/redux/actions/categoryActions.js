@@ -4,7 +4,7 @@ import * as actionTypes from "../constants/categoryConstants"
 
 
 export const getCategories = () => async (dispatch) => {
-    const {data} = await axios.get("/e_categories")
+    const {data} = await axios.get("/api/categories/e_categories")
     dispatch({
             type: actionTypes.GET_CATEGORIES_REQUEST,
             payload: data
@@ -18,7 +18,7 @@ export const saveAttributeToCatDoc = (key, val, categoryChoosen) => async (dispa
         authorization: "Bearer " + token,
       },
     };
-    const {data} = await axios.post("/attr", {key, val, categoryChoosen}, config)
+    const {data} = await axios.post("/api/categories/attr", {key, val, categoryChoosen}, config)
     if(data.categoryUpdated) {
         dispatch({
             type: actionTypes.SAVE_ATTR,

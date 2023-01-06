@@ -11,7 +11,7 @@ const config = {
     authorization: "Bearer " + token,
   },
 };
-  const { data } = await axios.get("/products/admin", config,{
+  const { data } = await axios.get("/api/products/admin", config,{
     signal: abctrl.signal,
   });
   return data;
@@ -24,7 +24,7 @@ const config = {
     authorization: "Bearer " + token,
   },
 };
-  const { data } = await axios.delete(`/products/admin/${productId}`,config);
+  const { data } = await axios.delete(`/api/products/admin/${productId}`,config);
   return data;
 };
 const AdminProductPage = () => {

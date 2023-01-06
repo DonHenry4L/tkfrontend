@@ -11,7 +11,7 @@ const createProductApiRequest = async (formInputs) => {
     },
   };
   const { data } = await axios.post(
-    "/products/admin",
+    "/api/products/admin",
     { ...formInputs },
     config
   );

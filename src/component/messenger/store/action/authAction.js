@@ -15,7 +15,7 @@ export const userRegister = (data) => {
       },
     };
     try {
-      const response = await axios.post("/user-register", data, config);
+      const response = await axios.post("/api/auth/user-register", data, config);
       localStorage.setItem("authToken", response.data.token);
 
       dispatch({
@@ -44,7 +44,7 @@ export const userLogin = (data) => {
       },
     };
     try {
-      const response = await axios.post("/user-login", data, config);
+      const response = await axios.post("/api/auth/user-login", data, config);
       localStorage.setItem("authToken", response.data.token);
 
       dispatch({
@@ -68,7 +68,7 @@ export const userLogin = (data) => {
 export const userLogout = (data) => async (dispatch) => {
   const token = getChatToken();
   try {
-    const response = await axios.post("/user-logout", data, {
+    const response = await axios.post("/api/auth/user-logout", data, {
       headers: {
         authorization: "Bearer " + token,
       },

@@ -13,7 +13,7 @@ const config = {
     authorization: "Bearer " + token,
   },
 };
-  const { data } = await axios.get("/admin/getOrders", config);
+  const { data } = await axios.get("/api/orders/admin/getOrders", config);
   console.log(data);
   return data;
 };

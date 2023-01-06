@@ -14,7 +14,7 @@ export const uploadImagesApiRequest = async (images, productId) => {
     formData.append("images", image);
   });
  const {data} = await axios.post(
-    "/products/admin/upload?productId=" + productId,
+    "/api/products/admin/upload?productId=" + productId,
     formData,
     config
   );
@@ -45,7 +45,7 @@ export const uploadImagesCloudinaryApiRequest = (images, productId) => {
         return response.json();
       })
       .then((data) => {
-        axios.post("/products/admin/upload?cloudinary=true&productId=" + productId, data, config)
+        axios.post("/api/products/admin/upload?cloudinary=true&productId=" + productId, data, config)
       });
   }
 };

@@ -89,7 +89,10 @@ export default function AdminNavbar({ rtl, toggled }) {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
           }}
-        ></div>
+        >
+
+        <div className="text-green-500">Administrator</div>
+        </div>
         {/* <SidebarContent> */}
         <Menu>
           <MenuItem
@@ -203,12 +206,20 @@ export default function AdminNavbar({ rtl, toggled }) {
             </MenuItem>
 
             {/* Profile */}
+
             <MenuItem
+              routerLink={<Link to={`/admin/profile`} />}
+              className={activeName(`/admin/profile`)}
+            >
+              Profile
+            </MenuItem>
+
+            {/* <MenuItem
               routerLink={<Link to={`/admin/${authInfo?.user?._id}`} />}
               className={activeName(`/admin/${authInfo?.user?._id}`)}
             >
               Profile
-            </MenuItem>
+            </MenuItem> */}
 
             {/* customize */}
             <MenuItem
@@ -263,12 +274,12 @@ export default function AdminNavbar({ rtl, toggled }) {
             >
               Orders
             </MenuItem>
-            {/* <MenuItem
+            <MenuItem
               className={activeName("/admin/order-details/:id")}
               routerLink={<Link to="/admin/order-details/:id" />}
             >
-              Order-Details
-            </MenuItem> */}
+              {/* Order-Details */}
+            </MenuItem>
           </SubMenu>
         </Menu>
         <Menu>

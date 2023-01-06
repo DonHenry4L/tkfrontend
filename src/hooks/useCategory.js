@@ -8,7 +8,7 @@ const useCategory = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const { data } = await axios.get("/categories");
+        const { data } = await axios.get("/api/category/categories");
         setCategories(data);
       } catch (err) {
         console.log(err);

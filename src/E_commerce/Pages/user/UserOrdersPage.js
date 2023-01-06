@@ -11,7 +11,7 @@ const getOrders = async () => {
       authorization: "Bearer " + token,
     },
   };
-  const {data} = await axios.get("/orders", config);
+  const {data} = await axios.get("/api/orders", config);
   return data
 }
 

@@ -8,7 +8,7 @@ const useLatestPosts = () => {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const { data } = await axios.get("/posts/1");
+        const { data } = await axios.get("/api/post/posts/1");
         setLatestPosts(data);
       } catch (err) {
         console.log(err);

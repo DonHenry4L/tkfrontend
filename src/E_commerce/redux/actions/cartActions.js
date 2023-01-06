@@ -11,7 +11,7 @@ export const addToCart =
         authorization: "Bearer " + token,
       },
     };
-    const { data } = await axios.get(`/products/get-one/${productId}`, config);
+    const { data } = await axios.get(`/api/products/get-one/${productId}`, config);
     dispatch({
       type: actionTypes.ADD_TO_CART,
       payload: {

@@ -21,7 +21,7 @@ export default function Posts() {
   const fetchPosts = async () => {
     const token = getToken();
     try {
-      const { data } = await axios.get("/posts-for-admin", {
+      const { data } = await axios.get("/api/post/posts-for-admin", {
         headers: {
           authorization: "Bearer " + token,
         },

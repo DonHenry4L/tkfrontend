@@ -9,7 +9,7 @@ const loginUserApiRequest = async (email, password, doNotLogout, userLoggedIn) =
   // const { data } = await axios.post("/login", { email, password, doNotLogout });
   // return data;
   try {
-    const { data } = await axios.post("/login", {email, password, doNotLogout,userLoggedIn});
+    const { data } = await axios.post("/api/users/login", {email, password, doNotLogout,userLoggedIn});
     return data;
   } catch (error) {
     const { response } = error;

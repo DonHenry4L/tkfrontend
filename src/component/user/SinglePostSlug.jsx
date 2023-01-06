@@ -41,7 +41,7 @@ const SinglePostSlug = () => {
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(`/createComment/${post._id}`, {
+      const { data } = await axios.post(`/api/post/createComment/${post._id}`, {
         comment,
       });
       // setComments([data, ...comments]);

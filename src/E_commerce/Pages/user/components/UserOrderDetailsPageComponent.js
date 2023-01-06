@@ -33,7 +33,7 @@ useEffect(() => {
           nationality: data.nationality,
           phone: data.phone,})
     }).catch((err) => console.log(err))
-}, [])
+}, [getUser])
 
 useEffect(() => {
   getOrder(id)

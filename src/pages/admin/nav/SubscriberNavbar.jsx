@@ -139,8 +139,8 @@ export default function AdminNavbar({ rtl, toggled }) {
           >
             {/* Profile */}
             <MenuItem
-              routerLink={<Link to={`user/profile`} />}
-              className={activeName(`user/profile`)}
+              routerLink={<Link to={`/user/profile`} />}
+              className={activeName(`/user/profile`)}
             >
               Profile
             </MenuItem>

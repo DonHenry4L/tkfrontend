@@ -22,6 +22,7 @@ import AdminCreateProduct from "../E_commerce/Pages/admin/AdminCreateProduct";
 import AdminEditProduct from "../E_commerce/Pages/admin/AdminEditProduct";
 import AdminOrders from "../E_commerce/Pages/admin/AdminOrders";
 import AdminOrderDetails from "../E_commerce/Pages/admin/AdminOrderDetails";
+import ProfilePage from "../component/profile/ProfilePage";
 import AdminChat from "../E_commerce/Pages/admin/AdminChat";
 import AdminAnalyticsPage from "../E_commerce/Pages/admin/AdminAnalyticsPage";
 import Create_E_Category from "../E_commerce/Pages/admin/Create_E_Category";
@@ -51,6 +52,7 @@ function AdminNavigator() {
             />
             <Route path="/tksarl_signIn" element={<ChatSignIn />} />
             <Route path="/tksarl_signUp" element={<ChatSignUp />} />
+            <Route path="/admin/profile" element={<ProfilePage />} />
             <Route path="/admin/posts" element={<Posts />} />
             <Route path="/admin/posts/new" element={<NewPost />} />
             <Route path="/posts" element={<AllPosts />} />

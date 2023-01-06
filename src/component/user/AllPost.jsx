@@ -2,6 +2,7 @@ import { Col, Row, Card, Avatar } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import client from "../../api/client";
 
 const { Meta } = Card;
 
@@ -9,7 +10,7 @@ const AllPost = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const { data } = await axios.get("/posts");
+    const { data } = await axios.get("/api/post/posts");
     setPosts(data);
   };
 

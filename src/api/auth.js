@@ -3,7 +3,7 @@ import { getToken } from "../utils/helper";
 
 export const createUser = async (userInfo) => {
   try {
-    const { data } = await axios.post("/register", userInfo);
+    const { data } = await axios.post("/api/users/register", userInfo);
     return data;
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ export const createUser = async (userInfo) => {
 
 export const verifyUserEmail = async (userInfo) => {
   try {
-    const { data } = await axios.post("/verify-email", userInfo);
+    const { data } = await axios.post("/api/users/verify-email", userInfo);
     return data;
   } catch (error) {
     const { response } = error;
@@ -28,7 +28,7 @@ export const verifyUserEmail = async (userInfo) => {
 
 export const signInUser = async (userLoggedIn) => {
   try {
-    const { data } = await axios.post("/login", userLoggedIn);
+    const { data } = await axios.post("/api/users/login", userLoggedIn);
     return data;
   } catch (error) {
     const { response } = error;
@@ -46,7 +46,7 @@ export const getIsAuth = async () => {
     },
   };
   try {
-    const { data } = await axios.get("/is-auth", config);
+    const { data } = await axios.get("/api/is-auth", config);
     return data;
   } catch (error) {
     const { response } = error;
@@ -58,7 +58,7 @@ export const getIsAuth = async () => {
 
 export const forgetPassword = async (email) => {
   try {
-    const { data } = await axios.post("/forget-password", { email });
+    const { data } = await axios.post("/api/users/forget-password", { email });
     return data;
   } catch (error) {
     const { response } = error;
@@ -70,7 +70,7 @@ export const forgetPassword = async (email) => {
 
 export const verifyPasswordResetToken = async (token, userId) => {
   try {
-    const { data } = await axios.post("/verify-password-reset-token", {
+    const { data } = await axios.post("/api/users/verify-password-reset-token", {
       token,
       userId,
     });
@@ -85,7 +85,7 @@ export const verifyPasswordResetToken = async (token, userId) => {
 
 export const resetPassword = async (passwordInfo) => {
   try {
-    const { data } = await axios.post("/reset-password", passwordInfo);
+    const { data } = await axios.post("/api/users/reset-password", passwordInfo);
     return data;
   } catch (error) {
     const { response } = error;
@@ -97,7 +97,7 @@ export const resetPassword = async (passwordInfo) => {
 
 export const resendEmailVerificationToken = async (userId) => {
   try {
-    const { data } = await axios.post("/resend-email-verification-token", {
+    const { data } = await axios.post("/api/users/resend-email-verification-token", {
       userId,
     });
     return data;

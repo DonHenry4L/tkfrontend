@@ -10,7 +10,7 @@ const fetchUsers = async (abctrl) => {
       authorization: "Bearer " + token,
     },
   };
-  const { data } = await axios.get("/users", config,{
+  const { data } = await axios.get("/api/users", config,{
     signal: abctrl.signal,
   });
   return data;
@@ -23,7 +23,7 @@ const deleteUser = async (userId) => {
       authorization: "Bearer " + token,
     },
   };
-  const { data } = await axios.delete(`/user/${userId}`, config);
+  const { data } = await axios.delete(`/api/users/user/${userId}`, config);
   return data;
 };
 

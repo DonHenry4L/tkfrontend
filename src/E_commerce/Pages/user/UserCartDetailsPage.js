@@ -23,12 +23,12 @@ const UserCartDetailsPage = () => {
   };
 
   const getUser = async () => {
-    const { data } = await axios.get("/user/profile/" + userInfo.id, config);
+    const { data } = await axios.get("/api/users/profile/" + userInfo.id, config);
     return data;
   };
 
   const createOrder = async (orderData) => {
-      const { data } = await axios.post("/createOrder", { ...orderData }, config);
+      const { data } = await axios.post("/api/orders/createOrder", { ...orderData }, config);
       return data;
   }
 

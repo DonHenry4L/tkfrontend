@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductListPageComponent from "./admin/components/ProductListPageComponent";
 
 const getProducts = async () => {
-  const { data } = await axios.get("/products");
+  const { data } = await axios.get("/api/products");
   return data;
 };
 

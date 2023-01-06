@@ -9,7 +9,7 @@ const AllPosts = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const { data } = await axios.get("/posts");
+    const { data } = await axios.get("/api/post/posts");
     setPosts(data);
   };
 

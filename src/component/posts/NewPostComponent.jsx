@@ -68,7 +68,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
   const loadCategories = async () => {
     try {
-      const { data } = await axios.get("/categories");
+      const { data } = await axios.get("/api/category/categories");
       setLoadedCategories(data);
     } catch (err) {
       console.log(err);
@@ -84,7 +84,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
     setLoading(true);
     const { data } = await axios.post(
-      "/create-post",
+      "api/post/create-post",
       {
         title,
         content,

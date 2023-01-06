@@ -43,7 +43,7 @@ const SinglePost = ({ postComments }) => {
     try {
       setLoading(true);
       const { data } = await axios.post(
-        `/createComment/${post._id}`,
+        `/api/post/createComment/${post._id}`,
         {
           comment,
         },

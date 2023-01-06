@@ -11,7 +11,7 @@ const config = {
     authorization: "Bearer " + token,
   },
 };
-    const { data } =  await axios.get("/userOrder/" + orderId, config);
+    const { data } =  await axios.get("/api/orders/user/" + orderId, config);
     return data;
 }
 
@@ -92,7 +92,7 @@ const configure = {
     authorization: "Bearer " + token,
   },
 };
-    const { data } = await axios.put("/paid/" + orderId, configure);
+    const { data } = await axios.put("/api/orders/paid/" + orderId, configure);
     return data;
 }
 
@@ -106,7 +106,7 @@ const UserOrderDetailsPage = () => {
           authorization: "Bearer " + token,
         },
       };
-        const { data } = await axios.get("/user/profile/" + userInfo.id, config);
+        const { data } = await axios.get("/api/users/profile/" + userInfo.id, config);
         return data;
     }
 
