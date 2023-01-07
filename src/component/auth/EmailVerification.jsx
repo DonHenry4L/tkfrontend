@@ -102,7 +102,7 @@ export default function EmailVerification() {
   }, [activeOtpIndex]);
 
   useEffect(() => {
-    // if (!user) navigate("/not-found");
+    if (!user) navigate("/not-found");
     if (isLoggedIn && isVerified) navigate("/");
   }, [navigate, user, isLoggedIn, isVerified]);
 

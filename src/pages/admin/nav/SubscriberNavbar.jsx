@@ -62,7 +62,7 @@ export default function AdminNavbar({ rtl, toggled }) {
         onToggle={() => setCollapsed(!collapsed)}
         className="xm:w-6 md:w-20 sm:w-10"
       >
-        <div className="flex">
+        <div className="flex sm:flex-wrap sm:text-4">
           <Link to="/" className="flex">
             <img
               src={authInfo.profile.picture}
@@ -85,7 +85,9 @@ export default function AdminNavbar({ rtl, toggled }) {
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
           }}
-        ></div>
+        >
+          <div className="text-green-500">Subscriber</div>
+        </div>
         {/* <SidebarContent> */}
         <Menu>
           <MenuItem

@@ -1,11 +1,14 @@
-import { createStore, compose, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import thunk from "redux-thunk";
 
-import thunkMiddleware from "redux-thunk";
+// import thunkMiddleware from "redux-thunk";
 import { authReducer } from "./reducers/authReducer";
 import { messengerReducer } from "./reducers/messengerReducer";
 import { cartReducer } from "../../../E_commerce/redux/reducers/cartReducers";
 import { userRegisterLoginReducer } from "../../../E_commerce/redux/reducers/userReducers";
 import { getCategoriesReducer } from "../../../E_commerce/redux/reducers/categoryReducers";
+
 
 
 
@@ -44,15 +47,13 @@ const INITIAL_STATE = {
 };
 // End E_commerce
 
-const middleware = [thunkMiddleware];
+const middleware = [thunk];
 
 const store = createStore(
   rootReducer,
   // E commerce
   INITIAL_STATE,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(...middleware),
   )
 );
 

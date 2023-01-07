@@ -47,13 +47,27 @@ export default function Header() {
         >
           <BsFillSunFill size={24} />
         </button>
-      </div>
+      <div
+          style={{
+            padding: "24px",
+            textTransform: "uppercase",
+            fontWeight: "bold",
+            fontSize: 14,
+            letterSpacing: "1px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            whiteSpace: "nowrap",
+          }}
+          >
+          <span className="text-green-500">Hi👋 {authInfo.profile.username}</span>
+        </div>
+
       <Space>
       <Button type="primary" onClick={showDrawer}>
           Logout
         </Button>
       </Space>
-    </div>
+          </div>
       <Drawer
         title="Click here to Logout"
         placement={placement}
@@ -77,6 +91,7 @@ export default function Header() {
         <p>Some contents...</p>
         <p>Some contents...</p>
       </Drawer>
+        </div>
     </>
   );
 }
