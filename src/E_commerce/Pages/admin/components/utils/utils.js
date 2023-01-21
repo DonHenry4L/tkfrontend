@@ -1,18 +1,33 @@
 import axios from "axios";
+import { getToken } from "../../../../../utils/helper";
 
 export const uploadImagesApiRequest = async (images, productId) => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
   const formData = new FormData();
   Array.from(images).forEach((image) => {
     formData.append("images", image);
   });
   const { data } = await axios.post(
     "/api/products/admin/upload?productId=" + productId,
-    formData
+    formData,
+    config
   );
   return data;
 };
 
 export const uploadImagesCloudinaryApiRequest = (images, productId) => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+
   const url = "https://api.cloudinary.com/v1_1/di0vcnj81/image/upload";
   const formData = new FormData();
   for (let i = 0; i < images.length; i++) {
@@ -29,7 +44,8 @@ export const uploadImagesCloudinaryApiRequest = (images, productId) => {
       .then((data) => {
         axios.post(
           "/api/products/admin/upload?cloudinary=true&productId=" + productId,
-          data
+          data,
+          config
         );
       });
   }

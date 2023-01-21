@@ -107,7 +107,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
       localStorage.removeItem("post-content");
       setMedia({ ...media, selected: null });
 
-      navigate(`/${page}/posts`);
+      navigate(`/posts`);
     }
   };
 

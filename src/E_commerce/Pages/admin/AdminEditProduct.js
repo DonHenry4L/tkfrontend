@@ -23,9 +23,19 @@ const fetchProducts = async (productId) => {
 };
 
 const updateProductApiRequest = async (productId, formInputs) => {
-  const { data } = await axios.put(`/api/products/admin/${productId}`, {
-    ...formInputs,
-  });
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.put(
+    `/api/products/admin/${productId}`,
+    {
+      ...formInputs,
+    },
+    config
+  );
   return data;
 };
 
@@ -35,13 +45,23 @@ const AdminEditProductPage = () => {
   const reduxDispatch = useDispatch();
 
   const imageDeleteHandler = async (imagePath, productId) => {
+    const token = getToken();
+    const config = {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    };
     let encoded = encodeURIComponent(imagePath);
     if (process.env.NODE_ENV !== "production") {
       // to do: change to !==
-      await axios.delete(`/api/products/admin/image/${encoded}/${productId}`);
+      await axios.delete(
+        `/api/products/admin/image/${encoded}/${productId}`,
+        config
+      );
     } else {
       await axios.delete(
-        `/api/products/admin/image/${encoded}/${productId}?cloudinary=true`
+        `/api/products/admin/image/${encoded}/${productId}?cloudinary=true`,
+        config
       );
     }
   };

@@ -1,6 +1,5 @@
 import { catchError, getToken } from "../utils/helper";
 import axios from "axios";
-import client from "./client";
 
 export const Delivered = async (id) => {
   try {

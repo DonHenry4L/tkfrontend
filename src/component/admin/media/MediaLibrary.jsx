@@ -97,7 +97,7 @@ export default function MediaLibrary() {
       {media?.images?.length}
 
       <div style={{ textAlign: "center" }}>
-        {/* {media?.images?.map((image) => (
+        {media?.images?.map((image) => (
           <Badge>
             <Image
               onClick={() => setMedia({ ...media, selected: image })}
@@ -129,7 +129,7 @@ export default function MediaLibrary() {
               ""
             )}
           </Badge>
-        ))} */}
+        ))}
       </div>
     </>
   );

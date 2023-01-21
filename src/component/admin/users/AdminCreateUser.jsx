@@ -13,11 +13,14 @@ const AdminCreateUser = () => {
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   // const [password, setPassword] = useState(generator.generate({ length: 8 }));
-  const [password, setPassword] = useState("userpassword");
+  const [password, setPassword] = useState("user5678");
   const [role, setRole] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [checked, setChecked] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const { updateNotification } = useNotification();
 
   // function
   const handleSubmit = async (e) => {
@@ -71,9 +74,6 @@ const AdminCreateUser = () => {
     }
   };
 
-  const navigate = useNavigate();
-  const { updateNotification } = useNotification();
-
   // show form
   return (
     <Layout>
@@ -112,7 +112,7 @@ const AdminCreateUser = () => {
           />
           <div style={{ display: "flex" }}>
             <Button
-              onClick={() => setPassword("tkpassword")}
+              onClick={() => setPassword("royal678")}
               type="default"
               size="large"
               style={{ margin: "10px 0px 10px 0px" }}

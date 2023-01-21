@@ -16,20 +16,28 @@ const UserCartDetailsPage = () => {
 
   const reduxDispatch = useDispatch();
 
-  const token = getToken();
-  const config = {
-    headers: {
-      authorization: "Bearer " + token,
-    },
-  };
-
   const getUser = async () => {
-    const { data } = await axios.get("/api/users/profile/" + userInfo._id);
+    const token = getToken();
+    const config = {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    };
+    const { data } = await axios.get(
+      "/api/users/profile/" + userInfo._id,
+      config
+    );
     console.log(data);
     return data;
   };
 
   const createOrder = async (orderData) => {
+    const token = getToken();
+    const config = {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    };
     const { data } = await axios.post(
       "/api/orders/createOrder",
       { ...orderData },

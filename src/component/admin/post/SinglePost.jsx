@@ -28,10 +28,6 @@ dayjs.extend(relativeTime);
 const { Meta } = Card;
 const { Title } = Typography;
 
-require("react-dom");
-window.React2 = require("react");
-console.log(window.React1 === window.React2);
-
 export default function SinglePost({ postComments }) {
   const [post, setPost] = useState({});
   const [ready, setReady] = useState(false);

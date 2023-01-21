@@ -45,7 +45,13 @@ const updateUserApiRequest = async (
 };
 
 const fetchUser = async (id) => {
-  const { data } = await axios.get("/api/users/profile/" + id);
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.get("/api/users/profile/" + id, config);
   return data;
 };
 
