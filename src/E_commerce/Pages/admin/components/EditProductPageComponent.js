@@ -406,6 +406,7 @@ const EditProductPageComponent = ({
                         setImageUploaded(!imageUploaded);
                       })
                       .catch((err) =>
+                        // trying to see if image can be uploaded
                         setIsUploading(
                           err.response.data.message
                             ? err.response.data.message
