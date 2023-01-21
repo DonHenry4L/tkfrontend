@@ -21,42 +21,42 @@ function Banner() {
   return (
     <div>
       <section className="header">
-      <header
-        className="banner"
-        style={{
-          backgroundSize: "cover",
+        <header
+          className="banner"
+          style={{
+            backgroundSize: "cover",
             backgroundImage: `./image/banner.jpeg`,
-          backgroundPosition: "center center",
-        }}
-      >
-        <div className="banner__contents">
-          <h1 className="banner__title">
-            TG FAMILY
-            {/* {movie?.title || movie?.name || movie?.original_name} */}
-          </h1>
-          <div className="banner__buttons">
-            <button
-              className="banner__button"
-              //   onClick={() => navigate("/allPost")}
-            >
-              Posts
-            </button>
+            backgroundPosition: "center center",
+          }}
+        >
+          <div className="banner__contents">
+            <h1 className="banner__title">
+              ROYAL KATD
+              {/* {movie?.title || movie?.name || movie?.original_name} */}
+            </h1>
+            <div className="banner__buttons">
+              <button
+                className="banner__button"
+                //   onClick={() => navigate("/allPost")}
+              >
+                Posts
+              </button>
 
-            <button
-              className="banner__button"
-              //   onClick={() => navigate("/series")}
-            >
-              Series
-            </button>
+              <button
+                className="banner__button"
+                //   onClick={() => navigate("/series")}
+              >
+                Series
+              </button>
+            </div>
+            <h1 className="banner__description">
+              {/* {truncate(movie?.overview, 150)} */}
+              <p>Company Mission Statement goes here</p>
+            </h1>
           </div>
-          <h1 className="banner__description">
-            {/* {truncate(movie?.overview, 150)} */}
-            <p>Company Mission Statement goes here</p>
-          </h1>
-        </div>
 
-        <div className="banner__fadeButton" />
-      </header>
+          <div className="banner__fadeButton" />
+        </header>
       </section>
       <div className="pt-12 ">
         {/* <AppSearchForm
