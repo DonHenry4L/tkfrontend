@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useNotification } from "../../../hooks";
-import generator from "generate-password";
+// import generator from "generate-password";
 import { getToken } from "../../../utils/helper";
 
 const AdminCreateUser = () => {
@@ -12,7 +12,8 @@ const AdminCreateUser = () => {
   const [last_name, setLast_name] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
-  const [password, setPassword] = useState(generator.generate({ length: 8 }));
+  // const [password, setPassword] = useState(generator.generate({ length: 8 }));
+  const [password, setPassword] = useState("userpassword");
   const [role, setRole] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -111,7 +112,7 @@ const AdminCreateUser = () => {
           />
           <div style={{ display: "flex" }}>
             <Button
-              onClick={() => setPassword(generator.generate({ length: 8 }))}
+              onClick={() => setPassword("tkpassword")}
               type="default"
               size="large"
               style={{ margin: "10px 0px 10px 0px" }}
