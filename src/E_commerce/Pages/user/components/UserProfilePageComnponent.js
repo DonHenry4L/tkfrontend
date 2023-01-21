@@ -1,9 +1,12 @@
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import FormInput from "../../../../form/FormInput";
 import Title from "../../../../form/Title";
 import { commonModalClasses } from "../../../../utils/theme";
 import Submit from "../../../../form/Submit";
+import { Avatar } from "antd";
+import Media from "../../../../component/admin/media";
+import { MediaContext } from "../../../../context/Media";
 
 const UserProfilePageComponent = ({
   updateUserApiRequest,
@@ -23,28 +26,14 @@ const UserProfilePageComponent = ({
   const [user, setUser] = useState({});
   const userInfo = userInfoFromRedux;
 
-  const [loadImage, setLoadImage] = useState("");
-  const [file, setFiles] = useState(null);
+  const [picture, setPicture] = useState({});
+  const [media, setMedia] = useContext(MediaContext);
 
   useEffect(() => {
-    fetchUser(userInfo.id)
+    fetchUser(userInfo._id)
       .then((data) => setUser(data))
       .catch((er) => console.log(er));
-  }, [userInfo.id]);
-
-  const fileHandle = (e) => {
-    if (e.target.files.length !== 0) {
-      setFiles({
-        ...file,
-        [e.target.name]: e.target.files[0],
-      });
-    }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setLoadImage(reader.result);
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  }, [userInfo._id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,32 +43,35 @@ const UserProfilePageComponent = ({
     const first_name = form.first_name.value;
     const last_name = form.last_name.value;
     const phone = form.phone.value;
-    const email = form.email.value;
-    const lga = form.lga.value;
+    const address = form.address.value;
     const country = form.country.value;
-    const nationality = form.nationality.value;
-    const town = form.town.value;
+    const city = form.city.value;
     const state = form.state.value;
     const password = form.password.value;
-    const picture = form.picture.value;
+    // const picture = form.picture.value;
 
     if (event.currentTarget.checkValidity() === true) {
       updateUserApiRequest(
         first_name,
         last_name,
-        email,
         phone,
-        lga,
+        address,
         country,
-        nationality,
-        town,
+        city,
         state,
         password,
-        picture
+        {
+          picture: media?.selected?._id
+            ? media?.selected?._id
+            : picture?._id
+            ? picture?._id
+            : undefined,
+        }
       )
         .then((data) => {
           setUpdateUserResponseState({ success: data.success, error: "" });
           reduxDispatch(setReduxUserState({ ...data.userUpdated }));
+          setPicture(data.picture);
           localStorage.setItem(
             "userInfo",
             JSON.stringify({ ...data.userUpdated })
@@ -166,28 +158,9 @@ const UserProfilePageComponent = ({
                           type="password"
                         />
                       </div>
-                      <div className="form-group">
-                        <div className="file-image">
-                          <div className="image">
-                            {loadImage ? <img src={loadImage} /> : ""}
-                          </div>
-                          <div className="file">
-                            <label
-                              htmlFor="picture"
-                              className="text-gray-500 font-semibold"
-                            >
-                              Select Image
-                            </label>
-                            <FormInput
-                              type="file"
-                              onChange={fileHandle}
-                              name="picture"
-                              className="form-control"
-                              id="picture"
-                            />
-                          </div>
-                        </div>
-                      </div>
+
+                      {/* {authInfo?.profile?.role === "Subscriber" && <Media />} */}
+                      <Media />
                     </Container>
                     <Container>
                       {/* SECOND COL */}
@@ -197,12 +170,12 @@ const UserProfilePageComponent = ({
                       <div>
                         <div className="grid grid-cols-2 gap-4">
                           <FormInput
-                            //   value={nationality}
+                            //   value={address}
                             //   onChange={handleChange}
-                            label="Nationality"
-                            placeholder="African"
-                            name="nationality"
-                            defaultValue={user.nationality}
+                            label="Address"
+                            placeholder="Your Address"
+                            name="address"
+                            defaultValue={user.address}
                           />
                           <FormInput
                             //   value={country}
@@ -219,16 +192,8 @@ const UserProfilePageComponent = ({
                             //   onChange={handleChange}
                             label="City"
                             placeholder="City"
-                            name="town"
-                            defaultValue={user.town}
-                          />
-                          <FormInput
-                            //   value={lga}
-                            //   onChange={handleChange}
-                            label="L.G.A"
-                            placeholder="Local Government"
-                            name="lga"
-                            defaultValue={user.lga}
+                            name="city"
+                            defaultValue={user.city}
                           />
                         </div>
 
@@ -240,6 +205,21 @@ const UserProfilePageComponent = ({
                           name="state"
                           defaultValue={user.state}
                         />
+                      </div>
+                      <div style={{ marginBottom: 20, textAlign: "center" }}>
+                        {media.selected ? (
+                          <>
+                            <div style={{ marginBottom: 15 }}></div>
+                            <Avatar src={media.selected.url} size={100} />
+                          </>
+                        ) : picture ? (
+                          <>
+                            <div style={{ marginBottom: 15 }}></div>
+                            <Avatar src={picture.url} size={100} />
+                          </>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </Container>
                   </div>
@@ -274,3 +254,274 @@ const UserProfilePageComponent = ({
 };
 
 export default UserProfilePageComponent;
+
+// import React, { useState, useEffect, useContext } from "react";
+// import { Row, Col, Button, Input, Checkbox, Select, Avatar } from "antd";
+// import axios from "axios";
+// import { useAuth, useNotification } from "../../../../hooks";
+// import { getToken } from "../../../../utils/helper";
+// import { MediaContext } from "../../../../context/Media";
+// import Media from "../../../../component/admin/media";
+// // import Media from "../admin/media";
+// import "../../../../antdesign/antdist.css";
+// import { useDispatch } from "react-redux";
+// import { setReduxUserState } from "../../../redux/actions/userActions";
+// import Container from "../../../../containers/Container";
+
+// const UserProfilePageComponent = () => {
+//   // context
+//   const { authInfo } = useAuth();
+//   const [media, setMedia] = useContext(MediaContext);
+//   // state
+//   const [ids, setIds] = useState("");
+//   const [first_name, setFirst_name] = useState("");
+//   const [last_name, setLast_name] = useState("");
+//   const [username, setUsername] = useState("");
+//   const [email, setEmail] = useState("");
+//   const [website, setWebsite] = useState("");
+//   const [password, setPassword] = useState();
+//   const [role, setRole] = useState("");
+
+//   const [phone, setPhone] = useState("");
+//   const [address, setAddress] = useState("");
+//   const [city, setCity] = useState("");
+//   const [state, setState] = useState("");
+
+//   const [picture, setPicture] = useState({});
+//   const [loading, setLoading] = useState(false);
+//   const [country, setCountry] = useState("");
+
+//   const { updateNotification } = useNotification();
+//   const reduxDispatch = useDispatch();
+
+//   useEffect(() => {
+//     const currentUser = async (id) => {
+//       try {
+//         const { data } = await axios.get("/api/users/profile/" + id);
+//         console.log("current_user", data);
+//         setIds(data._id);
+//         setFirst_name(data.first_name);
+//         setLast_name(data.last_name);
+//         setUsername(data.username);
+//         setEmail(data.email);
+//         setWebsite(data.website);
+//         setRole(data.role);
+//         setPhone(data.phone);
+//         setAddress(data.address);
+//         setState(data.state);
+//         setCity(data.city);
+//         setCountry(data.country);
+//         setPicture(data.picture);
+//       } catch (err) {
+//         console.log(err);
+//       }
+//     };
+//     currentUser();
+//   }, []);
+
+//   // function
+//   const handleSubmit = async (e) => {
+//     const token = getToken();
+//     const config = {
+//       headers: {
+//         authorization: "Bearer " + token,
+//       },
+//     };
+//     e.preventDefault();
+//     try {
+//       const { data } = await axios.put(
+//         "/api/users/profile",
+//         {
+//           ids,
+//           first_name,
+//           last_name,
+//           email,
+//           password,
+//           website,
+//           role,
+//           phone,
+//           address,
+//           country,
+//           city,
+//           state,
+//           picture: media?.selected?._id
+//             ? media?.selected?._id
+//             : picture?._id
+//             ? picture?._id
+//             : undefined,
+//         },
+//         config
+//       );
+//       // console.log("update_user", data);
+
+//       if (data?.error) {
+//         updateNotification("error", data.error);
+//       } else {
+//         // udpate context and local storage for current user only
+//         if (authInfo?.profile?._id === data._id) {
+//           // setAuth({ ...auth, user: data });
+//           let fromLocalStorage = JSON.parse(localStorage.getItem("userInfo"));
+//           fromLocalStorage.user = data;
+//           reduxDispatch(setReduxUserState({ ...data.userUpdated }));
+//           localStorage.setItem("userInfo", JSON.stringify(fromLocalStorage));
+//           sessionStorage.setItem(
+//             "userInfo",
+//             JSON.stringify({ ...data.userUpdated })
+//           );
+//         }
+
+//         updateNotification("success", "User updated successfully");
+//       }
+//     } catch (err) {
+//       console.log(err);
+//       updateNotification("error", "User update failed. Try again.");
+//       setLoading(false);
+//     }
+//   };
+
+//   // show form
+//   return (
+//     <Row>
+//       <Col span={12} offset={3}>
+//         <h4 style={{ marginBottom: "-10px" }}>Profile update</h4>
+
+//         <div style={{ marginBottom: 20, textAlign: "center" }}>
+//           {media.selected ? (
+//             <>
+//               <div style={{ marginBottom: 15 }}></div>
+//               <Avatar src={media.selected.url} size={100} />
+//             </>
+//           ) : picture ? (
+//             <>
+//               <div style={{ marginBottom: 15 }}></div>
+//               <Avatar src={picture.url} size={100} />
+//             </>
+//           ) : (
+//             ""
+//           )}
+//         </div>
+
+//         {/* {authInfo?.profile?.role === "Subscriber" && <Media />} */}
+//         <Media />
+//         <div className="flex grid-cols-2 gap-4">
+//           <Input
+//             id="first_name"
+//             style={{ margin: "20px 0px 10px 0px" }}
+//             size="large"
+//             placeholder="First name"
+//             value={first_name}
+//             onChange={(e) => setFirst_name(e.target.value)}
+//           />
+//           <Input
+//             style={{ margin: "20px 0px 10px 0px" }}
+//             size="large"
+//             placeholder="Last name"
+//             value={last_name}
+//             onChange={(e) => setLast_name(e.target.value)}
+//           />
+//         </div>
+//         <div className="flex grid grid-cols-2 gap-4">
+//           <Input
+//             style={{ margin: "10px 0px 10px 0px" }}
+//             size="large"
+//             placeholder="username"
+//             value={username}
+//             onChange={(e) => setUsername(e.target.value)}
+//           />
+
+//           <Input
+//             style={{ margin: "10px 0px 10px 0px" }}
+//             size="large"
+//             placeholder="Email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//           />
+//         </div>
+//         <Input
+//           style={{ margin: "10px 0px 10px 0px" }}
+//           size="large"
+//           placeholder="Website"
+//           value={website}
+//           onChange={(e) => setWebsite(e.target.value)}
+//         />
+
+//         <Input.Password
+//           style={{ margin: "10px 0px 10px 0px" }}
+//           size="large"
+//           placeholder="Password"
+//           value={password}
+//           onChange={(e) => setPassword(e.target.value)}
+//         />
+
+//         {/* {page === "admin" && (
+//           <Select
+//             value={role}
+//             style={{ margin: "10px 0px 10px 0px", width: "100%" }}
+//             onChange={(e) => setRole(e)}
+//           >
+//             <Select.Option value="Subscriber">Subscriber</Select.Option>
+//             <Select.Option value="Author">Author</Select.Option>
+//             <Select.Option value="Admin">Admin</Select.Option>
+//           </Select>
+//         )} */}
+//         <Input
+//           style={{ margin: "10px 0px 10px 0px" }}
+//           size="large"
+//           placeholder="phone"
+//           value={phone}
+//           type="number"
+//           onChange={(e) => setPhone(e.target.value)}
+//         />
+//         <Container>
+//           <div>
+//             <div className="grid grid-cols-2 gap-4">
+//               <Input
+//                 style={{ margin: "10px 0px 10px 0px" }}
+//                 size="large"
+//                 placeholder="Country"
+//                 value={country}
+//                 type="country"
+//                 onChange={(e) => setCountry(e.target.value)}
+//               />
+//               <Input
+//                 style={{ margin: "10px 0px 10px 0px" }}
+//                 size="large"
+//                 type="address"
+//                 placeholder="Address"
+//                 value={address}
+//                 onChange={(e) => setAddress(e.target.value)}
+//               />
+//               <Input
+//                 style={{ margin: "10px 0px 10px 0px" }}
+//                 size="large"
+//                 type="city"
+//                 placeholder="City"
+//                 value={city}
+//                 onChange={(e) => setCity(e.target.value)}
+//               />
+//               <Input
+//                 style={{ margin: "10px 0px 10px 0px" }}
+//                 size="large"
+//                 type="state"
+//                 placeholder="State"
+//                 value={state}
+//                 onChange={(e) => setState(e.target.value)}
+//               />
+//             </div>
+//           </div>
+//         </Container>
+//         <Button
+//           onClick={handleSubmit}
+//           type="primary"
+//           style={{ margin: "10px 0px 10px 0px" }}
+//           loading={loading}
+//           block
+//         >
+//           Update
+//         </Button>
+//       </Col>
+//     </Row>
+//   );
+// };
+
+// export default UserProfilePageComponent;

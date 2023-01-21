@@ -1,7 +1,7 @@
 import { Form, Select } from "antd";
 import React from "react";
 
-const SortOptionsComponent = () => {
+const SortOptionsComponent = ({ setSortOption }) => {
   return (
     <Form
       labelCol={{
@@ -13,7 +13,10 @@ const SortOptionsComponent = () => {
       layout="horizontal"
     >
       <Form.Item label="SORT BY">
-        <Select placeholder="Open This Select Menu">
+        <Select
+          placeholder="Open This Select Menu"
+          onChange={(e) => setSortOption(e.target.value)}
+        >
           <Select.Option value="price_1">Price: Low To High</Select.Option>
           <Select.Option value="price_-1">Price: High To Low</Select.Option>
           <Select.Option value="rating_-1">Customer Rating</Select.Option>

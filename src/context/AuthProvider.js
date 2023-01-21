@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getIsAuth, signInUser } from "../api/auth";
 import { useNotification } from "../hooks";
-import { logout, setReduxUserState } from "../E_commerce/redux/actions/userActions";
+import {
+  logout,
+  setReduxUserState,
+} from "../E_commerce/redux/actions/userActions";
 import axios from "axios";
-
 
 export const AuthContext = createContext();
 
@@ -43,18 +45,13 @@ export default function AuthProvider({ children }) {
       error: "",
     });
 
-    
     if (user) {
       reduxDispatch(setReduxUserState(user));
     }
 
-    if(user.doNotLogout) {
-      // JSON.parse(localStorage.setItem("userInfo", user))
-      localStorage.setItem("userInfo", user.token)
-    }else {
-      sessionStorage.setItem("userInfo", user.token);
-    }
-    return user
+    // if (user.doNotLogout) JSON.parse(localStorage.setItem("userInfo", user));
+    // localStorage.setItem("userInfo", user.token);
+    // else sessionStorage.setItem("userInfo", user);
 
     // localStorage.setItem("access_token", userLoggedIn);
     // localStorage.setItem("userInfo", user.token)
@@ -68,7 +65,6 @@ export default function AuthProvider({ children }) {
 
     setAuthInfo({ ...authInfo, isPending: true });
     const { error, user } = await getIsAuth(token);
-
 
     if (error) {
       updateNotification("error", error);

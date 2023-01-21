@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 import { logout } from "../../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
@@ -10,7 +16,7 @@ const UsersPageComponent = ({ fetchUsers, deleteUser }) => {
   const [users, setUsers] = useState([]);
   const [userDeleted, setUserDeleted] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // Delete user
   const deleteHandler = async (userId) => {
@@ -63,15 +69,18 @@ const UsersPageComponent = ({ fetchUsers, deleteUser }) => {
                 <td>{user.email}</td>
                 <td>
                   {user.role === "Admin" ? (
-                    <i className="bi bi-check-lg text-success"></i>
+                    // <i className="bi bi-check-lg text-success"></i>
+                    <CheckOutlined className="text-green-500 admin_true" />
                   ) : (
-                    <i className="bi bi-x-lg text-danger"></i>
+                    // <i className="bi bi-x-lg text-danger"></i>
+                    <CloseOutlined className="text-red-500 admin_false" />
                   )}
                 </td>
                 <td>
                   <Link to={`/admin/edit-user/${user._id}`}>
                     <Button type="primary" className="btn-sm">
-                      <i className="bi bi-pencil-square"></i>
+                      {/* <i className="bi bi-pencil-square"></i> */}
+                      <EditOutlined />
                     </Button>
                   </Link>
                   {" / "}
@@ -80,7 +89,8 @@ const UsersPageComponent = ({ fetchUsers, deleteUser }) => {
                     className="btn-sm"
                     onClick={() => deleteHandler(user._id)}
                   >
-                    <i className="bi bi-x-circle"></i>
+                    {/* <i className="bi bi-x-circle"></i> */}
+                    <DeleteOutlined />
                   </Button>
                 </td>
               </tr>

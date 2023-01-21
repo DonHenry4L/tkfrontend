@@ -1,5 +1,6 @@
 {
   "name": "frontend",
+  "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +15,11 @@
     "axios": "^1.2.2",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
+    "crypto": "^1.0.1",
+    "crypto-browserify": "^3.12.0",
+    "crypto-random-string": "^3.3.0",
+    "dayjs": "^1.11.7",
+    "generate-password": "^1.7.0",
     "js-image-zoom": "^0.7.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
@@ -37,6 +43,7 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-scroll-into-view": "^1.12.0",
+    "react-share-social": "^0.1.55",
     "react-simple-star-rating": "^4.1.1",
     "react-spring": "^9.5.5",
     "react-toastify": "^9.1.1",
@@ -46,6 +53,7 @@
     "redux-thunk": "^2.4.2",
     "sass": "^1.55.0",
     "socket.io-client": "^4.5.4",
+    "stream": "^0.0.2",
     "use-sound": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -77,5 +85,9 @@
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
     "tailwindcss": "^3.2.4"
+  },
+  "browser": {
+    "crypto": false,
+    "stream": false
   }
 }

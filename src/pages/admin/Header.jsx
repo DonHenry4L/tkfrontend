@@ -1,6 +1,5 @@
 import { Button, Drawer, Space } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { BsFillSunFill } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth, useTheme } from "../../hooks";
 import { SiMessenger } from "react-icons/si";
@@ -8,7 +7,7 @@ import { FiLogOut } from "react-icons/fi";
 // import AppSearchForm from "../form/AppSearchForm";
 
 export default function Header() {
-  const { toggleTheme } = useTheme();
+  // const { toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [placement] = useState("right");
   const { authInfo, handleLogout } = useAuth();
@@ -47,13 +46,6 @@ export default function Header() {
         </Link>
       </div>
       <div className="flex items-center space-x-3">
-        <button
-          onClick={toggleTheme}
-          className="dark:text-white text-light-subtle"
-        >
-          <BsFillSunFill size={24} />
-        </button>
-
         <div
           style={{
             padding: "24px",
@@ -66,7 +58,9 @@ export default function Header() {
             whiteSpace: "nowrap",
           }}
         >
-          <span className="text-green-500">Hi👋 {authInfo.profile.username}</span>
+          <span className="text-green-500">
+            Hi👋 {authInfo.profile.username}
+          </span>
         </div>
 
         <Space>
@@ -101,5 +95,3 @@ export default function Header() {
     </div>
   );
 }
-
-

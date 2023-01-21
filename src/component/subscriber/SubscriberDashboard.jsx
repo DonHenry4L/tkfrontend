@@ -44,7 +44,7 @@ export default function SubscriberDashboard() {
           consectetur!
         </p>
       </Layout>
-      <div className="m-5 mt-20">
+      <div className="m-5 mt-20 admin_footer">
         <Footer />
       </div>
     </div>

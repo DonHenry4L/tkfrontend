@@ -15,6 +15,21 @@
 .nav__black {
   background-color: #161538;
 }
+
+@media screen and (max-width: 767px) {
+  .user_dropdown {
+    font-size: 10px !important;
+    color: green !important;
+  }
+  .theme_changer {
+    display: none !important;
+  }
+}
+@media screen and (max-width: 568px) {
+  .user_dropdown {
+    font-size: 8px !important;
+  }
+}
 /* 
 .nav__bar {
   margin-top: -1.3rem;

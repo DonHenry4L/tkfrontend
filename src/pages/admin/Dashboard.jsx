@@ -46,7 +46,7 @@ export default function Dashboard() {
             </List>
           </div>
         </Layout>
-        <div className="m-5">
+        <div className="m-5 admin_footer">
           <Footer />
         </div>
       </div>

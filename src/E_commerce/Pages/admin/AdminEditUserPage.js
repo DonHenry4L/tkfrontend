@@ -1,70 +1,52 @@
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Checkbox } from "antd";
+import EditUserPageComponent from "./components/EditUserPageComponent";
+import axios from "axios";
+import { getToken } from "../../../utils/helper";
+
+const fetchUser = async (userId) => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.get(`/api/users/${userId}`, config);
+  return data;
+};
+
+const updateUserApiRequest = async (
+  userId,
+  first_name,
+  last_name,
+  email,
+  isAdmin,
+  role
+) => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.put(
+    `/api/users/${userId}`,
+    {
+      first_name,
+      last_name,
+      email,
+      isAdmin,
+      role,
+    },
+    config
+  );
+  return data;
+};
 
 const AdminEditUserPage = () => {
-  const [validated, setValidated] = useState(false);
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-  };
   return (
-    <Container>
-      <Row className="justify-content-md-center mt-5">
-        <Col md={1}>
-          <Link to="/admin/users" className="btn btn-info my-3">
-            Go Back
-          </Link>
-        </Col>
-        <Col md={6}>
-          <h1>Edit User</h1>
-          <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicFirmName">
-              <Form.Label className="text-gray-500">First Name</Form.Label>
-              <Form.Control
-                name="firstname"
-                required
-                type="text"
-                defaultValue="John"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicLastName">
-              <Form.Label className="text-gray-500">Last Name</Form.Label>
-              <Form.Control
-                name="lastname"
-                required
-                type="text"
-                rows={3}
-                defaultValue="Doe"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="text-gray-500">Email</Form.Label>
-              <Form.Control
-                name="email"
-                required
-                type="email"
-                defaultValue="John@gmail.com"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicPrice">
-              <Checkbox name="isAdmin">Is Admin</Checkbox>
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Update
-            </Button>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+    <EditUserPageComponent
+      updateUserApiRequest={updateUserApiRequest}
+      fetchUser={fetchUser}
+    />
   );
 };
 

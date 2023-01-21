@@ -14,7 +14,6 @@ import {
   commonModalUserClasses,
   commonUserImageModalClasses,
 } from "../../utils/theme";
-import "react-phone-number-input/style.css";
 import DateOfBirthSelect from "../../form/DateOfBirthSelect";
 import GenderSelect from "../../form/GenderSelect";
 
@@ -24,10 +23,9 @@ const validateUserInfo = ({
   first_name,
   email,
   password,
-  nationality,
+  address,
   country,
   city,
-  lga,
   state,
   phone,
 }) => {
@@ -41,10 +39,9 @@ const validateUserInfo = ({
   if (!isValidPhone.test(phone))
     return { ok: false, error: "Invalid Phone Number!" };
 
-  if (!nationality.trim())
-    return { ok: false, error: "nationality is missing!" };
+  if (!address.trim()) return { ok: false, error: "address is missing!" };
   if (!country.trim()) return { ok: false, error: "Country is missing!" };
-  if (!lga.trim()) return { ok: false, error: "Local Government is missing!" };
+  if (!city.trim()) return { ok: false, error: "City is missing!" };
   if (!state.trim()) return { ok: false, error: "State is missing!" };
 
   if (!email.trim()) return { ok: false, error: "Email is missing!" };
@@ -64,10 +61,9 @@ export default function RegisterPageComponent() {
     email: "",
     phone: "",
     password: "",
-    nationality: "",
+    address: "",
     country: "",
-    town: "",
-    lga: "",
+    city: "",
     state: "",
     bYear: new Date().getFullYear(),
     bMonth: new Date().getMonth() + 1,
@@ -121,7 +117,7 @@ export default function RegisterPageComponent() {
     }
 
     const response = await createUser(userInfo);
-    if (response.error) return console.log(response.error);
+    if (response.error) return updateNotification("error", response.error);
 
     navigate("/auth/verification", {
       state: { user: response.user },
@@ -139,10 +135,9 @@ export default function RegisterPageComponent() {
     last_name,
     email,
     phone,
-    nationality,
+    address,
     country,
-    town,
-    lga,
+    city,
     state,
     password,
     bYear,
@@ -160,12 +155,12 @@ export default function RegisterPageComponent() {
   const days = Array.from(new Array(getDays()), (val, index) => 1 + index);
 
   return (
-    <FormContainer className="xs:h-full signup_scroll">
-      <div>
-        <div className={commonUserImageModalClasses + " md:flex w-full"}>
+    <FormContainer className="">
+      <div className="">
+        <div className={commonUserImageModalClasses + " md:flex w-full "}>
           <div>
             <div className="">
-              <Container className="">
+              <Container className="sign__up">
                 <form
                   onSubmit={handleSubmit}
                   className={
@@ -173,11 +168,11 @@ export default function RegisterPageComponent() {
                     " w-full shadow-light-card dark:shadow-md"
                   }
                 >
-                  <Title>Sign Up</Title>
+                  <Title className="sign_upp">Sign Up</Title>
                   <div className="md:grid md:grid-cols-2">
                     <Container className="">
                       <div className="grid">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-4 register_bars">
                           <FormInput
                             value={first_name}
                             onChange={handleChange}
@@ -193,78 +188,40 @@ export default function RegisterPageComponent() {
                             name="last_name"
                           />
                         </div>
-                        <FormInput
-                          value={email}
-                          onChange={handleChange}
-                          label="Email"
-                          placeholder="john@gmail.com"
-                          name="email"
-                        />
-                        <FormInput
-                          value={phone}
-                          onChange={handleChange}
-                          label="Phone"
-                          placeholder="(+234) 806 +++"
-                          name="phone"
-                        />
-                        {/* password */}
-                        <FormInput
-                          value={password}
-                          onChange={handleChange}
-                          label="Password"
-                          placeholder="********"
-                          name="password"
-                          type="password"
-                        />
-                      </div>
-                    </Container>
-                    <Container>
-                      {/* SECOND COL */}
-                      {/* <div className="w-full font-semibold underline text-lg dark:text-white text-primary text-center">
-                      <p>Other Required Information</p>
-                    </div> */}
-                      <div>
                         <div className="grid grid-cols-2 gap-4">
                           <FormInput
-                            value={nationality}
+                            value={email}
                             onChange={handleChange}
-                            label="Nationality"
-                            placeholder="African"
-                            name="nationality"
+                            label="Email"
+                            placeholder="john@gmail.com"
+                            name="email"
                           />
+                          {/* password */}
                           <FormInput
-                            value={country}
+                            value={password}
                             onChange={handleChange}
-                            label="Country"
-                            placeholder="Country"
-                            name="country"
+                            label="Password"
+                            placeholder="********"
+                            name="password"
+                            type="password"
                           />
                         </div>
-                        <div className="grid grid-cols-2 gap-4">
-                          <FormInput
-                            value={town}
-                            onChange={handleChange}
-                            label="City"
-                            placeholder="City"
-                            name="town"
-                          />
-                          <FormInput
-                            value={lga}
-                            onChange={handleChange}
-                            label="L.G.A"
-                            placeholder="Local Government"
-                            name="lga"
-                          />
+                        {/* Gender Select */}
+                        <div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-transparent rounded text-lg outline-none dark:border-dark-subtle border-light-subtle p-1 dark:text-white text-primary -mt-1">
+                              <div className="reg_line_header dark:text-dark-subtle text-gray-500 ">
+                                Gender <i className="info_icon"></i>
+                              </div>
+
+                              <GenderSelect
+                                handleOnChange={handleChange}
+                                genderError={genderError}
+                              />
+                            </div>
+                          </div>
                         </div>
-
-                        <FormInput
-                          value={state}
-                          onChange={handleChange}
-                          label="State"
-                          placeholder="State"
-                          name="state"
-                        />
-
+                        {/* END Gender Select */}
                         {/* DATE OF BIRTH */}
                         <div
                           style={{
@@ -281,7 +238,7 @@ export default function RegisterPageComponent() {
                               alignItems: "center",
                               gap: "2px",
                             }}
-                            className="reg_line_header flex items-center space-x-2 font-semibold dark:text-dark-subtle text-light-subtle"
+                            className="reg_line_header flex items-center space-x-2 font-semibold dark:text-dark-subtle text-light-subtle dob__label"
                           >
                             Date of birth <i className="info_icon"></i>
                           </label>
@@ -296,26 +253,27 @@ export default function RegisterPageComponent() {
                             dateError={dateError}
                           />
                         </div>
-                        <div className="reg_col bg-transparent rounded border-2 w-full text-lg outline-none dark:border-dark-subtle border-light-subtle p-1 dark:text-white text-primary peer transition">
-                          <div className="reg_line_header dark:text-dark-subtle text-light-subtle">
-                            Gender <i className="info_icon"></i>
-                          </div>
-
-                          <GenderSelect
-                            handleOnChange={handleChange}
-                            genderError={genderError}
-                          />
-                        </div>
+                      </div>
+                    </Container>
+                    <Container>
+                      <div>
+                        {/** TO DO: make image transparent when on smaller screen */}
+                        {/* <img
+                          src="../pic/signup_pic.gif"
+                          alt=""
+                          className=" h-96"
+                        /> */}
                       </div>
                     </Container>
                   </div>
-
+                  <div className="w-full font-semibold underline text-lg dark:text-white text-primary text-center mt-3 animate-pulse">
+                    <p>
+                      We recommend You to update your Profile after registration
+                    </p>
+                  </div>
                   <Submit value="Create Account" />
 
                   <div className="flex justify-between">
-                    {/* <CustomLink to="/auth/forget-password">
-                      Forget Password
-                    </CustomLink> */}
                     <CustomLink to="/auth/signin">Sign in </CustomLink>
                   </div>
                 </form>

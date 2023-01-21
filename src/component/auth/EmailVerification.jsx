@@ -93,6 +93,7 @@ export default function EmailVerification() {
     if (error) return updateNotification("error", error);
 
     updateNotification("success", message);
+    navigate("/");
     localStorage.setItem("auth-token", userResponse.token);
     isAuth();
   };

@@ -12,6 +12,11 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, Fragment, useRef } from "react";
 import HeaderComponent from "../../../HeaderComponent";
+import {
+  changeCategory,
+  setValuesForAttrFromDbSelectForm,
+  setAttributesTableWrapper,
+} from "./utils/utils";
 
 const onHover = {
   cursor: "pointer",
@@ -30,7 +35,7 @@ const EditProductPageComponent = ({
   imageDeleteHandler,
   uploadHandler,
   uploadImagesApiRequest,
-  uploadImagesCloudinaryApiRequest
+  uploadImagesCloudinaryApiRequest,
 }) => {
   const [validated, setValidated] = useState(false);
   const [product, setProduct] = useState({});
@@ -43,34 +48,14 @@ const EditProductPageComponent = ({
   const [categoryChoosen, setCategoryChoosen] = useState("Choose category");
   const [newAttrKey, setNewAttrKey] = useState(false);
   const [newAttrValue, setNewAttrValue] = useState(false);
-  const [imageRemoved, setImageRemoved] = useState(false)
+  const [imageRemoved, setImageRemoved] = useState(false);
   const [isUploading, setIsUploading] = useState("");
   const [imageUploaded, setImageUploaded] = useState(false);
-
 
   const attrVal = useRef(null);
   const attrKey = useRef(null);
   const createNewAttrKey = useRef(null);
   const createNewAttrVal = useRef(null);
-
-  const setValuesForAttrFromDbSelectForm = (e) => {
-    if (e.target.value !== "Choose attribute") {
-      var selectedAttr = attributesFromDb.find(
-        (item) => item.key === e.target.value
-      );
-      let valuesForAttrKeys = attrVal.current;
-      if (selectedAttr && selectedAttr.value.length > 0) {
-        while (valuesForAttrKeys.options.length) {
-          valuesForAttrKeys.remove(0);
-        }
-        valuesForAttrKeys.options.add(new Option("Choose attribute value"));
-        selectedAttr.value.map((item) => {
-          valuesForAttrKeys.add(new Option(item));
-          return "";
-        });
-      }
-    }
-  };
 
   const { id } = useParams();
 
@@ -135,38 +120,25 @@ const EditProductPageComponent = ({
     setAttributesTable(product.attrs);
   }, [product]);
 
-  const changeCategory = (e) => {
-    const highLevelCategory = e.target.value.split("/")[0];
-    const highLevelCategoryAllData = categories.find(
-      (cat) => cat.name === highLevelCategory
-    );
-    if (highLevelCategoryAllData && highLevelCategoryAllData.attrs) {
-      setAttributesFromDb(highLevelCategoryAllData.attrs);
-    } else {
-      setAttributesFromDb([]);
-    }
-    setCategoryChoosen(e.target.value);
-  };
-
   const deleteAttribute = (key) => {
     setAttributesTable((table) => table.filter((item) => item.key !== key));
   };
 
   const checkKeyDown = (e) => {
     if (e.code === "Enter") e.preventDefault();
-}
+  };
 
-const newAttrKeyHandler = (e) => {
-  e.preventDefault();
-  setNewAttrKey(e.target.value);
-  addNewAttributeManually(e);
-}
+  const newAttrKeyHandler = (e) => {
+    e.preventDefault();
+    setNewAttrKey(e.target.value);
+    addNewAttributeManually(e);
+  };
 
-const newAttrValueHandler = (e) => {
-  e.preventDefault();
-  setNewAttrValue(e.target.value);
-  addNewAttributeManually(e);
-}
+  const newAttrValueHandler = (e) => {
+    e.preventDefault();
+    setNewAttrValue(e.target.value);
+    addNewAttributeManually(e);
+  };
 
   const attributeValueSelected = (e) => {
     if (e.target.value !== "Choose attribute value") {
@@ -180,37 +152,18 @@ const newAttrValueHandler = (e) => {
 
   const addNewAttributeManually = (e) => {
     if (e.keyCode && e.keyCode === 13) {
-        if (newAttrKey && newAttrValue) {
-            reduxDispatch(saveAttributeToCatDoc(newAttrKey, newAttrValue, categoryChoosen));
-           setAttributesTableWrapper(newAttrKey, newAttrValue, setAttributesTable);
-           e.target.value = "";
-           createNewAttrKey.current.value = "";
-           createNewAttrVal.current.value = "";
-           setNewAttrKey(false);
-           setNewAttrValue(false);
-        }
-    }
-}
-
-  const setAttributesTableWrapper = (key, val) => {
-    setAttributesTable((attr) => {
-      if (attr.length !== 0) {
-        var keyExistsInOldTable = false
-        let modifiedTable = attr.map(item => {
-          if(item.key === key) {
-            keyExistsInOldTable = true
-            item.value = val;
-            return item
-          } else {
-            return item
-          }
-        })
-        if (keyExistsInOldTable) return [...modifiedTable];
-        else return [...modifiedTable, {key: key, value: val}]
-      } else {
-        return [{ key: key, value: val }];
+      if (newAttrKey && newAttrValue) {
+        reduxDispatch(
+          saveAttributeToCatDoc(newAttrKey, newAttrValue, categoryChoosen)
+        );
+        setAttributesTableWrapper(newAttrKey, newAttrValue, setAttributesTable);
+        e.target.value = "";
+        createNewAttrKey.current.value = "";
+        createNewAttrVal.current.value = "";
+        setNewAttrKey(false);
+        setNewAttrValue(false);
       }
-    });
+    }
   };
 
   return (
@@ -224,7 +177,12 @@ const newAttrValueHandler = (e) => {
         </Col>
         <Col md={6}>
           <h1>Edit product</h1>
-          <Form noValidate validated={validated} onSubmit={handleSubmit} onKeyDown={(e) => checkKeyDown(e)}>
+          <Form
+            noValidate
+            validated={validated}
+            onSubmit={handleSubmit}
+            onKeyDown={(e) => checkKeyDown(e)}
+          >
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label className="text-gray-500">Name</Form.Label>
               <Form.Control
@@ -272,7 +230,14 @@ const newAttrValueHandler = (e) => {
                 required
                 name="category"
                 aria-label="Default select example"
-                onChange={changeCategory}
+                onChange={(e) =>
+                  changeCategory(
+                    e,
+                    categories,
+                    setAttributesFromDb,
+                    setCategoryChoosen
+                  )
+                }
               >
                 <option value="Choose category">Choose category</option>
                 {categories.map((category, idx) => {
@@ -372,7 +337,7 @@ const newAttrValueHandler = (e) => {
                     Create new attribute
                   </Form.Label>
                   <Form.Control
-                  ref={createNewAttrKey}
+                    ref={createNewAttrKey}
                     disabled={categoryChoosen === "Choose category"}
                     placeholder="first choose or create category"
                     name="newAttrKey"
@@ -391,14 +356,13 @@ const newAttrValueHandler = (e) => {
                     Attribute value
                   </Form.Label>
                   <Form.Control
-                  ref={createNewAttrVal}
+                    ref={createNewAttrVal}
                     disabled={categoryChoosen === "Choose category"}
                     placeholder="first choose or create category"
                     required={newAttrKey}
                     name="newAttrValue"
                     type="text"
                     onKeyUp={newAttrValueHandler}
-                    
                   />
                 </Form.Group>
               </Col>
@@ -416,28 +380,49 @@ const newAttrValueHandler = (e) => {
                   product.images.map((image, idx) => (
                     <Col key={idx} style={{ position: "relative" }} xs={3}>
                       <Image src={image.path ?? null} fluid />
-                      <i style={onHover} onClick={() => imageDeleteHandler(image.path, id).then(data => setImageRemoved(!imageRemoved))} className="bi bi-x text-danger"></i>
+                      <i
+                        style={onHover}
+                        onClick={() =>
+                          imageDeleteHandler(image.path, id).then((data) =>
+                            setImageRemoved(!imageRemoved)
+                          )
+                        }
+                        className="bi bi-x text-danger"
+                      ></i>
                     </Col>
                   ))}
               </Row>
-              <Form.Control required type="file" multiple onChange={e => {
-                setIsUploading("upload files in progress ...");
-                if(process.env.NODE_ENV !== "production"){
-                  // to do: change to !==
-                  uploadImagesApiRequest(e.target.files, id)
-                  .then(data => {
-                    setIsUploading("upload file completed")
-                    setImageUploaded(!imageUploaded)
-                  })
-                  .catch((err) => setIsUploading(err.response.data.message ? err.response.data.message : err.response.data))
-                } else {
-                  uploadImagesCloudinaryApiRequest(e.target.files, id)
-                  setIsUploading("upload file completed. wait for the result to take effect, refresh also if necessary")
-                  setTimeout(() => {
-                    setImageUploaded(!imageUploaded)
-                  }, 5000)
-                }
-              }}/>
+              <Form.Control
+                required
+                type="file"
+                multiple
+                onChange={(e) => {
+                  setIsUploading("upload files in progress ...");
+                  if (process.env.NODE_ENV !== "production") {
+                    // to do: change to !==
+                    uploadImagesApiRequest(e.target.files, id)
+                      .then((data) => {
+                        setIsUploading("upload file completed");
+                        setImageUploaded(!imageUploaded);
+                      })
+                      .catch((err) =>
+                        setIsUploading(
+                          err.response.data.message
+                            ? err.response.data.message
+                            : err.response.data
+                        )
+                      );
+                  } else {
+                    uploadImagesCloudinaryApiRequest(e.target.files, id);
+                    setIsUploading(
+                      "upload file completed. wait for the result to take effect, refresh also if necessary"
+                    );
+                    setTimeout(() => {
+                      setImageUploaded(!imageUploaded);
+                    }, 5000);
+                  }
+                }}
+              />
               {isUploading}
             </Form.Group>
             <Button variant="primary" type="submit">

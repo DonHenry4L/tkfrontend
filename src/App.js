@@ -14,7 +14,7 @@ import ProductListPage from "./E_commerce/Pages/ProductListPage";
 import RoutesWithUserChatComponent from "./E_commerce/Pages/user/RoutesWithUserChatComponent";
 import UserCartDetailsPage from "./E_commerce/Pages/user/UserCartDetailsPage";
 import UserOrdersPage from "./E_commerce/Pages/user/UserOrdersPage";
-import UserProfilePage from "./E_commerce/Pages/user/UserProfilePage";
+// import UserProfilePage from "./E_commerce/Pages/user/UserProfilePage";
 import ProtectedRoutesComponent from "./E_commerce/ProtectedRoutesComponent";
 import E_home from "./e_commerceComponent/pages/E_home";
 import { useAuth } from "./hooks";
@@ -58,10 +58,37 @@ function App() {
           <Route path="/auth/reset-password" element={<ConfirmPassword />} />
           <Route path="/post/:slug" element={<SinglePostSlug />} />
           {/* E_Commerce */}
-          <Route path="/shop" element={<HomePage />} />
-          <Route element={<RoutesWithUserChatComponent admin={true}/>}>
+          <Route element={<RoutesWithUserChatComponent />}>
+            <Route path="/shop" element={<HomePage />} />
             <Route path="/product-list" element={<ProductListPage />} />
-
+            <Route
+              path="/product-list/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
             <Route
               path="/product-details/:id"
               element={<ProductDetailsPage />}
@@ -69,13 +96,13 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             {/* E_Commerce User Pages */}
             {/* <Route element={<ProtectedRoutesComponent />}> */}
-              <Route path="/user" element={<UserProfilePage />} />
-              <Route path="/user/my-orders" element={<UserOrdersPage />} />
-              <Route
-                path="/user/cart-details"
-                element={<UserCartDetailsPage />}
-              />
-              {/* <Route path="/user/order-details" element={<UserOrdersPage />} /> */}
+            {/* <Route path="/user" element={<UserProfilePage />} /> */}
+            <Route path="/user/my-orders" element={<UserOrdersPage />} />
+            <Route
+              path="/user/cart-details"
+              element={<UserCartDetailsPage />}
+            />
+            {/* <Route path="/user/order-details" element={<UserOrdersPage />} /> */}
             {/* </Route> */}
           </Route>
         </Routes>

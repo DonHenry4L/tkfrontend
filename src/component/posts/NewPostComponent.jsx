@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Button, Col, Image, Input, Modal, Row, Select } from "antd";
-// import { UploadOutlined } from "@ant-design/icons";
+import { CloudUploadOutlined } from "@ant-design/icons";
 import "../../antdesign/style.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { MediaContext } from "../../context/Media";
 import { getToken } from "../../utils/helper";
 import { useNotification } from "../../hooks";
 import { MediaContext } from "../../context/Media";
@@ -50,7 +49,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
   // context
   //   const [theme, setTheme] = useContext(ThemeContext);
-  //   const [media, setMedia] = useContext(MediaContext);
+  const [media, setMedia] = useContext(MediaContext);
   // state
   const [title, setTitle] = useState(savedTitle());
   const [content, setContent] = useState(savedContent());
@@ -59,8 +58,8 @@ export default function NewPostComponent({ page = "admin", initialState }) {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   // media Modal
-  // const [visibleMedia, setVisibleMedia] = useState(false);
-  const [media, setMedia] = useContext(MediaContext);
+  const [visibleMedia, setVisibleMedia] = useState(false);
+  // const [media, setMedia] = useContext(MediaContext);
   // hook
   const { updateNotification } = useNotification();
 
@@ -84,7 +83,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
     setLoading(true);
     const { data } = await axios.post(
-      "api/post/create-post",
+      "/api/post/create-post",
       {
         title,
         content,
@@ -139,6 +138,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
 
         <br />
         <br />
+        {/* <pre>{JSON.stringify(loadedCategories, null, 4)}</pre> */}
       </Col>
 
       <Col span={6} offset={1}>
@@ -155,7 +155,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
           onClick={() => setMedia({ ...media, showMediaModal: true })}
           className="dark:bg-white dark:text-blue-500"
         >
-          {/* <UploadOutlined />  */}
+          <CloudUploadOutlined />
           Featured Image
         </Button>
 
@@ -215,6 +215,7 @@ export default function NewPostComponent({ page = "admin", initialState }) {
       >
         <Media />
       </Modal>
+      {/* media modal */}
     </Row>
   );
 }

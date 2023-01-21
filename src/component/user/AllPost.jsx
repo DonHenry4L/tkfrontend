@@ -2,7 +2,6 @@ import { Col, Row, Card, Avatar } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import client from "../../api/client";
 
 const { Meta } = Card;
 

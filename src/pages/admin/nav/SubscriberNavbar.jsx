@@ -65,8 +65,9 @@ export default function AdminNavbar({ rtl, toggled }) {
         <div className="flex sm:flex-wrap sm:text-4">
           <Link to="/" className="flex">
             <img
-              src={authInfo.profile.picture}
-              alt="profile pic"
+              // src={authInfo.profile.picture}
+              src={authInfo.image ? authInfo.image.picture ?? null : null}
+              alt="profile"
               className="h-14 m-4 rounded-full"
             />
           </Link>

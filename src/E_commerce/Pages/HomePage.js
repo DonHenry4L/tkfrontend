@@ -1,35 +1,26 @@
-import { Col, Row } from "antd";
-import React from "react";
-import HeaderComponent from "../../E_commerce/HeaderComponent";
-import CategoryCardComponent from "../CategoryCardComponent";
-import FooterComponent from "../FooterComponent";
-import ProductCarouselComponent from "../ProductCarouselComponent";
+import { useSelector } from "react-redux";
+import HomePageComponent from "./admin/components/HomePageComponent";
+import axios from "axios";
+import { getToken } from "../../utils/helper";
 
+const getBestSellers = async () => {
+  const token = getToken();
+  const config = {
+    headers: {
+      authorization: "Bearer " + token,
+    },
+  };
+  const { data } = await axios.get("/api/products/bestsellers", config);
+  return data;
+};
 
 const HomePage = () => {
-  const categories = [
-    "Tablets",
-    "Monitors",
-    "Games",
-    "Printers",
-    "Software",
-    "Cameras",
-    "Books",
-    "Videos",
-  ];
+  const { categories } = useSelector((state) => state.getCategories);
   return (
-    <>
-      <HeaderComponent />;
-      <ProductCarouselComponent />
-      <Row gutter={16}>
-        {categories.map((category, index) => (
-          <Col key={index}>
-            <CategoryCardComponent category={category} index={index} />
-          </Col>
-        ))}
-      </Row>
-      <FooterComponent />
-    </>
+    <HomePageComponent
+      categories={categories}
+      getBestSellers={getBestSellers}
+    />
   );
 };
 

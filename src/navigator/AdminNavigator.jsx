@@ -14,6 +14,7 @@ import Messenger from "../component/messenger/Messenger";
 import ChatSignIn from "../component/messenger/auth/ChatSignIn";
 import ChatSignUp from "../component/messenger/auth/ChatSignUp";
 import SinglePost from "../component/admin/post/SinglePost";
+import AdminCreateUser from "../component/admin/users/AdminCreateUser";
 import ProtectRoute from "../component/messenger/ProtectRoute";
 import AdminUsersPage from "../E_commerce/Pages/admin/AdminUsersPage";
 import AdminEditUserPage from "../E_commerce/Pages/admin/AdminEditUserPage";
@@ -21,17 +22,20 @@ import AdminProductPage from "../E_commerce/Pages/admin/AdminProductPage";
 import AdminCreateProduct from "../E_commerce/Pages/admin/AdminCreateProduct";
 import AdminEditProduct from "../E_commerce/Pages/admin/AdminEditProduct";
 import AdminOrders from "../E_commerce/Pages/admin/AdminOrders";
-import AdminOrderDetails from "../E_commerce/Pages/admin/AdminOrderDetails";
 import ProfilePage from "../component/profile/ProfilePage";
 import AdminChat from "../E_commerce/Pages/admin/AdminChat";
 import AdminAnalyticsPage from "../E_commerce/Pages/admin/AdminAnalyticsPage";
 import Create_E_Category from "../E_commerce/Pages/admin/Create_E_Category";
+import AdminOrderDetailsPage from "../E_commerce/Pages/admin/AdminOrderDetails";
 import HomePage from "../E_commerce/Pages/HomePage";
 import CartPage from "../E_commerce/Pages/CartPage";
 import UserCartDetailsPage from "../E_commerce/Pages/user/UserCartDetailsPage";
 import ProductListPage from "../E_commerce/Pages/ProductListPage";
 import ProductDetailsPage from "../E_commerce/Pages/ProductDetailsPage";
 import UserOrderDetailsPage from "../E_commerce/Pages/user/UserOrderDetailsPage";
+import AdminComments from "../pages/admin/comments/AdminComments";
+import SinglePostSlug from "../component/user/SinglePostSlug";
+import EditPost from "../component/admin/post/EditPost";
 
 function AdminNavigator() {
   return (
@@ -57,33 +61,77 @@ function AdminNavigator() {
             <Route path="/admin/posts/new" element={<NewPost />} />
             <Route path="/posts" element={<AllPosts />} />
             <Route path="/post/:slug" element={<SinglePost />} />
+            <Route path="/admin/posts/:slug" element={<EditPost />} />
             <Route path="/admin/media/library" element={<MediaLibrary />} />
             <Route path="/admin/media/new" element={<Media />} />
             <Route path="/admin/posts/categories" element={<Categories />} />
             {/* E_Commerce for Admin */}
             <Route path="/admin/users" element={<AdminUsersPage />} />
-            <Route path="/admin/edit-user" element={<AdminEditUserPage />} />
+            <Route path="/admin/users/new" element={<AdminCreateUser />} />
+            <Route path="/admin/comments" element={<AdminComments />} />
+            <Route
+              path="/admin/edit-user/:id"
+              element={<AdminEditUserPage />}
+            />
             <Route path="/admin/products" element={<AdminProductPage />} />
             <Route
               path="/admin/create-new-product"
               element={<AdminCreateProduct />}
             />
-            <Route
+            {/* <Route
               path="/admin/create-category"
               element={<Create_E_Category />}
+            /> */}
+            <Route
+              path="/admin/edit-product/:id"
+              element={<AdminEditProduct />}
             />
-            <Route path="/admin/edit-product/:id" element={<AdminEditProduct />} />
             <Route path="/admin/orders" element={<AdminOrders />} />
             <Route
               path="/admin/order-details/:id"
+              element={<AdminOrderDetailsPage />}
+            />
+            <Route
+              path="/user/order-details/:id"
               element={<UserOrderDetailsPage />}
             />
             <Route path="/admin/chats" element={<AdminChat />} />
             <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
             <Route path="/shop" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
+            <Route
+              path="/user/cart-details"
+              element={<UserCartDetailsPage />}
+            />
             <Route path="/product-list" element={<ProductListPage />} />
+            <Route
+              path="/product-list/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
             <Route
               path="/product-details/:id"
               element={<ProductDetailsPage />}

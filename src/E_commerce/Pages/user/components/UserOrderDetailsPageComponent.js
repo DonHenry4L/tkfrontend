@@ -1,86 +1,87 @@
 import { Button } from "antd";
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Alert, Col, Container, Form, ListGroup, Row } from "react-bootstrap";
 import CartItemComponent from "../../../CartItemComponent";
-import {useParams} from "react-router-dom"
+import { useParams } from "react-router-dom";
 
+const UserOrderDetailsPageComponent = ({
+  userInfo,
+  getUser,
+  getOrder,
+  loadPayPalScript,
+}) => {
+  const [userAddress, setUserAddress] = useState({});
+  const [paymentMethod, setPaymentMethod] = useState("");
+  const [isPaid, setIsPaid] = useState(false);
+  const [orderButtonMessage, setOrderButtonMessage] = useState("");
+  const [cartItems, setCartItems] = useState([]);
+  const [cartSubtotal, setCartSubtotal] = useState(0);
+  const [isDelivered, setIsDelivered] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
+  const paypalContainer = useRef();
 
-const UserOrderDetailsPageComponent = ({userInfo, getUser, getOrder, loadPayPalScript}) => {
-const [userAddress, setUserAddress] = useState({})
-const [paymentMethod, setPaymentMethod] = useState("")
-const [isPaid, setIsPaid] = useState(false)
-const [orderButtonMessage, setOrderButtonMessage] = useState("")
-const [cartItems, setCartItems] = useState([])
-const [cartSubtotal, setCartSubtotal] = useState(0)
-const [isDelivered, setIsDelivered] = useState(false)
-const [buttonDisabled, setButtonDisabled] = useState(false)
+  const { id } = useParams();
 
-
-const paypalContainer = useRef()
-
-
-const {id} = useParams()
-
-
-useEffect(() => {
+  useEffect(() => {
     getUser()
-    .then(data => {
-        setUserAddress({  town: data.town,
-          state: data.state,
+      .then((data) => {
+        setUserAddress({
+          address: data.address,
+          city: data.city,
           country: data.country,
-          lga: data.lga,
-          nationality: data.nationality,
-          phone: data.phone,})
-    }).catch((err) => console.log(err))
-}, [getUser])
+          state: data.state,
+          phone: data.phone,
+        });
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-useEffect(() => {
-  getOrder(id)
-    .then((data) => {
-      setPaymentMethod(data.paymentMethod);
-      setCartItems(data.cartItems);
-      setCartSubtotal(data.orderTotal.cartSubtotal);
-      data.isDelivered
-        ? setIsDelivered(data.deliveredAt)
-        : setIsDelivered(false);
-      data.isPaid ? setIsPaid(data.paidAt) : setIsPaid(false);
-      if (data.isPaid) {
-        setOrderButtonMessage("Your order is finished");
-        setButtonDisabled(true);
-      } else {
-        if (data.paymentMethod === "pp") {
-          setOrderButtonMessage("Pay for your order");
-        } else if (data.paymentMethod === "cod") {
+  useEffect(() => {
+    getOrder(id)
+      .then((data) => {
+        setPaymentMethod(data.paymentMethod);
+        setCartItems(data.cartItems);
+        setCartSubtotal(data.orderTotal.cartSubtotal);
+        data.isDelivered
+          ? setIsDelivered(data.deliveredAt)
+          : setIsDelivered(false);
+        data.isPaid ? setIsPaid(data.paidAt) : setIsPaid(false);
+        if (data.isPaid) {
+          setOrderButtonMessage("Your order is finished");
           setButtonDisabled(true);
-          setOrderButtonMessage("Wait for your order. You pay on delivery");
+        } else {
+          if (data.paymentMethod === "pp") {
+            setOrderButtonMessage("Pay for your order");
+          } else if (data.paymentMethod === "cod") {
+            setButtonDisabled(true);
+            setOrderButtonMessage("Wait for your order. You pay on delivery");
+          }
         }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const orderHandler = () => {
+    setButtonDisabled(true);
+    if (paymentMethod === "pp") {
+      setOrderButtonMessage(
+        "To pay for your order click one of the buttons below"
+      );
+      if (!isPaid) {
+        loadPayPalScript(cartSubtotal, cartItems, id, updateStateAfterOrder);
       }
-    })
-    .catch((err) => console.log(err));
-}, []);
-
-const orderHandler = () => {
-  setButtonDisabled(true);
-  if (paymentMethod === "pp") {
-    setOrderButtonMessage(
-      "To pay for your order click one of the buttons below"
-    );
-    if (!isPaid) {
-      loadPayPalScript(cartSubtotal, cartItems, id, updateStateAfterOrder)
+    } else {
+      setOrderButtonMessage("Your order was placed. Thank you");
     }
-  } else {
-    setOrderButtonMessage("Your order was placed. Thank you");
-  }
-};
+  };
 
-const updateStateAfterOrder = (paidAt) => {
+  const updateStateAfterOrder = (paidAt) => {
     setOrderButtonMessage("Thank you for your payment!");
     setIsPaid(paidAt);
     setButtonDisabled(true);
     paypalContainer.current.style = "display: none";
-}
-
+  };
 
   return (
     <Container fluid>
@@ -91,10 +92,9 @@ const updateStateAfterOrder = (paidAt) => {
           <Row>
             <Col md={6}>
               <h2>Shipping</h2>
-              <b>Name</b>: {userInfo.first_name} {userInfo.last_name} <br/>
-              <b>Address</b>: {userAddress.lga} <br /> {userAddress.town}{" "}
-              {userAddress.state} <br /> {userAddress.country}{" "}
-              {userAddress.nationality} <br />
+              <b>Name</b>: {userInfo.first_name} {userInfo.last_name} <br />
+              <b>Address</b>: {userAddress.address} {userAddress.city}{" "}
+              {userAddress.state} <br /> {userAddress.country} <br />
               <b>Phone</b>: {userAddress.phone}
             </Col>
             <Col md={6}>
@@ -108,8 +108,15 @@ const updateStateAfterOrder = (paidAt) => {
             </Col>
             <Row>
               <Col>
-                <Alert className="mt-3" variant={isDelivered ? "success" : "danger"}>
-                  {isDelivered ? <>Delivered at {isDelivered}</> : <>Not delivered</>}
+                <Alert
+                  className="mt-3"
+                  variant={isDelivered ? "success" : "danger"}
+                >
+                  {isDelivered ? (
+                    <>Delivered at {isDelivered}</>
+                  ) : (
+                    <>Not delivered</>
+                  )}
                 </Alert>
               </Col>
               <Col>
@@ -133,7 +140,8 @@ const updateStateAfterOrder = (paidAt) => {
               <h3>Order Summary</h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              Items Price (after tax): <span className="fw-bold">${cartSubtotal}</span>
+              Items Price (after tax):{" "}
+              <span className="fw-bold">${cartSubtotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
               Shipping: <span className="fw-bold">included</span>
@@ -145,7 +153,7 @@ const updateStateAfterOrder = (paidAt) => {
               Total price: <span className="fw-bold">${cartSubtotal}</span>
             </ListGroup.Item>
             <ListGroup.Item>
-            <div className="d-grid gap-2">
+              <div className="d-grid gap-2">
                 <Button
                   size="lg"
                   onClick={orderHandler}
@@ -165,6 +173,6 @@ const updateStateAfterOrder = (paidAt) => {
       </Row>
     </Container>
   );
-}
+};
 
 export default UserOrderDetailsPageComponent;

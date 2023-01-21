@@ -13,7 +13,7 @@ import Container from "../../containers/Container";
 
 const menu = (
   <Menu
-    className=""
+    className="login_dropdown"
     items={[
       {
         key: "1",
@@ -123,9 +123,9 @@ export default function Navbar() {
                       onClick={(e) => e.preventDefault()}
                       className="flex flex-row items-center w-full mt-2 text-base font-bold text-center uppercase bg-transparent rounded-lg md:w-auto md:inline md:mt-0 md:ml-4 focus:outline-none font-montserrat text-highlight dark:text-highlight-dark"
                     >
-                      <Space className="text-blue-500 dark:text-blue-400 font-semibold text-lg">
+                      <Space className="text-blue-500 dark:text-blue-400 font-semibold text-lg user_dropdown">
                         <span className="flex items-end justify-end  hover:font-semibold">
-                          {authInfo?.profile?.name || "Create Account"}
+                          {authInfo?.profile?.name || "Join Us"}
                         </span>
                       </Space>
                     </button>
@@ -135,7 +135,7 @@ export default function Navbar() {
               <li>
                 <button
                   onClick={toggleTheme}
-                  className="dark:bg-blue-500 bg-dark-subtle p-1 rounded sm:text-2xl text-lg"
+                  className="dark:bg-blue-500 bg-dark-subtle p-1 rounded sm:text-2xl text-lg theme_changer"
                 >
                   <BsFillSunFill className="text-secondary" size={15} />
                 </button>

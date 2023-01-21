@@ -1,38 +1,39 @@
 import React, { useState, useEffect } from "react";
-// import { CloseCircleOutlined, InboxOutlined } from "@ant-design/icons";
+import { CloseCircleOutlined, InboxOutlined } from "@ant-design/icons";
 import { Badge, Image, message, Upload } from "antd";
 import { getToken } from "../../../utils/helper";
 import { MediaContext } from "../../../context/Media";
 import axios from "axios";
-import { useNotification } from "../../../hooks";
+import { useAuth, useNotification } from "../../../hooks";
 
 const { Dragger } = Upload;
 
 export default function MediaLibrary() {
   // Context
+  const { authInfo } = useAuth();
   const [media, setMedia] = useState(MediaContext);
   const [showPreview, setShowMedia] = useState(false);
 
+  const token = getToken();
+
   const { updateNotification } = useNotification();
 
-  const fetchMedia = async () => {
-    const token = getToken();
-    try {
-      const { data } = await axios.get("/api/post/media", {
-        headers: {
-          authorization: "Bearer " + token,
-        },
-      });
-      setMedia((prev) => ({ ...prev, images: data }));
-    } catch (error) {
-      console.log(error);
-    }
-  };
   useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const { data } = await axios.get("/api/post/media", {
+          headers: {
+            authorization: "Bearer " + token,
+          },
+        });
+        console.log(data);
+        setMedia((prev) => ({ ...prev, images: data }));
+      } catch (err) {
+        console.log(err);
+      }
+    };
     fetchMedia();
   }, []);
-
-  const token = getToken();
 
   const props = {
     name: "file",
@@ -87,16 +88,17 @@ export default function MediaLibrary() {
     <>
       <Dragger {...props} accept="image/*">
         <p className="ant-upload-drag-icon">
-          {/* <InboxOutlined /> */}
+          <InboxOutlined />
         </p>
         <p className="ant-upload-text">
           Click or drag file to this area to upload
         </p>
       </Dragger>
+      {media?.images?.length}
 
       <div style={{ textAlign: "center" }}>
-        {media?.images?.map((image, index) => (
-          <Badge key={index}>
+        {/* {media?.images?.map((image) => (
+          <Badge>
             <Image
               onClick={() => setMedia({ ...media, selected: image })}
               preview={showPreview}
@@ -111,13 +113,23 @@ export default function MediaLibrary() {
               }}
             />
             <br />
-            Delete will be set later
-            {/* <CloseCircleOutlined
-              onClick={() => handleImageDelete(image._id)}
-              style={{ marginRight: "10", color: "#f5222d" }}
-            /> */}
+            <br />
+            {authInfo?.role === "Subscriber" &&
+            image?.postedBy?._id == authInfo?.user?._id ? (
+              <CloseCircleOutlined
+                onClick={() => handleImageDelete(image._id)}
+                style={{ marginTop: "5px", color: "#f5222d" }}
+              />
+            ) : authInfo?.role === "Admin" ? (
+              <CloseCircleOutlined
+                onClick={() => handleImageDelete(image._id)}
+                style={{ marginTop: "5px", color: "#f5222d" }}
+              />
+            ) : (
+              ""
+            )}
           </Badge>
-        ))}
+        ))} */}
       </div>
     </>
   );

@@ -52,7 +52,7 @@ export default function Categories() {
     // console.log("Delete Category");
     const token = getToken();
     try {
-      const data = await axios.delete(`/category/${item.slug}`, {
+      const data = await axios.delete(`/api/category/category/${item.slug}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -75,7 +75,7 @@ export default function Categories() {
     const token = getToken();
     try {
       const { data } = await axios.put(
-        `/category/${updatingCategory.slug}`,
+        `/api/category/category/${updatingCategory.slug}`,
         values,
         {
           headers: {
@@ -125,9 +125,9 @@ export default function Categories() {
           <Form onFinish={onFinish} form={form}>
             <Form.Item name="name">
               <Input
-              //   prefix={
-              //   <EditOutlined className="site-form-item-icon" />
-              // }
+                //   prefix={
+                //   <EditOutlined className="site-form-item-icon" />
+                // }
                 placeholder="Give it a name"
               />
             </Form.Item>

@@ -1,18 +1,11 @@
 import OrderDetailsPageComponent from "./components/OrderDetailsPageComponent";
 
-
 import { getToken } from "../../../utils/helper";
 import { Delivered } from "../../../api/order";
 import axios from "axios";
 
 const getOrder = async (id) => {
-  const token = getToken();
-  const config = {
-    headers: {
-      authorization: "Bearer " + token,
-    },
-  };
-  const { data } = await axios.get("/api/orders/userOrder/" + id, config);
+  const { data } = await axios.get("/api/orders/user/" + id);
   return data;
 };
 

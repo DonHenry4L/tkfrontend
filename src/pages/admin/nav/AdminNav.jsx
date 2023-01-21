@@ -66,11 +66,11 @@ export default function AdminNavbar({ rtl, toggled }) {
         onToggle={() => setCollapsed(!collapsed)}
         className="xm:w-6 md:w-20 sm:w-10"
       >
-        <div className="flex sm:flex-wrap sm:text-4">
+        <div className="flex sm:flex-wrap sm:text-4 xs:flex-wrap">
           <Link to="/" className="flex">
             <img
-              src={authInfo.profile.picture}
-              alt="logo"
+              src={authInfo?.profile.picture}
+              alt="profile"
               className="h-14 m-4 rounded-full"
             />
           </Link>
@@ -90,8 +90,7 @@ export default function AdminNavbar({ rtl, toggled }) {
             whiteSpace: "nowrap",
           }}
         >
-
-        <div className="text-green-500">Administrator</div>
+          <div className="text-green-500">Administrator</div>
         </div>
         {/* <SidebarContent> */}
         <Menu>
@@ -124,7 +123,7 @@ export default function AdminNavbar({ rtl, toggled }) {
               All Posts
             </MenuItem>
             <MenuItem
-              className={activeName("/admin/new")}
+              className={activeName("/admin/posts/new")}
               routerLink={<Link to="/admin/posts/new" />}
             >
               Add New
@@ -198,12 +197,12 @@ export default function AdminNavbar({ rtl, toggled }) {
             </MenuItem>
 
             {/* Edit User */}
-            <MenuItem
+            {/* <MenuItem
               className={activeName("/admin/edit-user")}
               routerLink={<Link to="/admin/edit-user" />}
             >
               Edit Users
-            </MenuItem>
+            </MenuItem> */}
 
             {/* Profile */}
 
@@ -233,19 +232,8 @@ export default function AdminNavbar({ rtl, toggled }) {
         <p className="m-4 text-yellow-500 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-contain text-center flex justify-center">
           E COMMERCE
         </p>
-        
-          {/* E_COMMERCE ADMIN NAVBAR */}
-        <Menu>
-          {/* Categories */}
-          <SubMenu label="Categories" icon={<MdOutlineCategory />}>
-            <MenuItem
-              className={activeName("/admin/create-category")}
-              routerLink={<Link to="/admin/create-category" />}
-            >
-              Create Category
-            </MenuItem>
-          </SubMenu>
-        </Menu>
+
+        {/* E_COMMERCE ADMIN NAVBAR */}
         {/* Products */}
         <Menu>
           <SubMenu label="Products" icon={<BsCart4 />}>
@@ -275,8 +263,8 @@ export default function AdminNavbar({ rtl, toggled }) {
               Orders
             </MenuItem>
             <MenuItem
-              className={activeName("/admin/order-details/:id")}
-              routerLink={<Link to="/admin/order-details/:id" />}
+              className={activeName("/user/order-details/:id")}
+              routerLink={<Link to="/user/order-details/:id" />}
             >
               {/* Order-Details */}
             </MenuItem>

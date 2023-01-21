@@ -1,63 +1,48 @@
 import React from "react";
 // import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import "../css/carousel.css";
-import { Carousel } from "react-responsive-carousel";
+import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
-const contentStyle = {
-  height: "300px",
-  color: "#fff",
-  lineHeight: "160px",
-  textAlign: "center",
-  background: "#364d79",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center center",
-  objectFit: "cover",
+
+// const contentStyle = {
+//   height: "300px",
+//   color: "#fff",
+//   lineHeight: "160px",
+//   textAlign: "center",
+//   background: "#364d79",
+//   backgroundRepeat: "no-repeat",
+//   backgroundPosition: "center center",
+//   objectFit: "cover",
+// };
+
+const ProductCarouselComponent = ({ bestSellers }) => {
+  const cursorP = {
+    cursor: "pointer",
+  };
+
+  return bestSellers.length > 0 ? (
+    <Carousel>
+      {bestSellers.map((item, idx) => (
+        <Carousel.Item key={idx}>
+          <img
+            crossOrigin="anonymous"
+            className="d-block w-100"
+            style={{ height: "300px", objectFit: "cover" }}
+            src={item.images ? item.images[0].path : null}
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <Link style={cursorP} to={`/product-details/${item._id}`}>
+              <h3>
+                <span className=" text-yellow-500">Bestseller</span> in {item.category} Category
+              </h3>
+            </Link>
+            <p>{item.description}</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  ) : null;
 };
-const ProductCarouselComponent = () => (
-  <Carousel
-    autoPlay
-    Responsive
-    emulateTouch
-    infiniteLoop
-    showStatus={false}
-    stopOnHover
-    swipeable
-    useKeyboardArrows={true}
-    className="carousel"
-    showIndicators={false}
-  >
-    <div>
-      <div style={contentStyle}>
-        <img src="./pic/banner.jpg" alt="" crossOrigin="anonymous" />
-        <Link to="/product-details">
-          <h3 className="legend">Best Seller On Laptop Category</h3>
-        </Link>
-      </div>
-      <p className="legend2">Dell Inspiron 15 3000 Laptop, 15.6 inch HD</p>
-    </div>
-    <div>
-      <div style={contentStyle}>
-        <img src="./pic/pic__2.jpg" alt="" crossOrigin="anonymous" />
-        <Link to="/product-details">
-          <h3 className="legend">Best Seller in Books Category</h3>
-        </Link>
-      </div>
-      <p className="legend2">
-        World of Eric Carle, Hear Bear Roar 30-Button Animal Sound Book
-      </p>
-    </div>
-    <div>
-      <div style={contentStyle}>
-        <img src="./pic/pic__11.jpg" alt="" crossOrigin="anonymous" />
-        <Link to="/product-details">
-          <h3 className="legend">Best Seller in Camera Category</h3>
-        </Link>
-      </div>
-      <p className="legend2">
-        4k Camcorder Video Camera 60FPS 48MP Vlogging Camera for YouTube Wifi
-        16X Digital Camera
-      </p>
-    </div>
-  </Carousel>
-);
+
 export default ProductCarouselComponent;

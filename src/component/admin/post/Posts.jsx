@@ -21,7 +21,7 @@ export default function Posts() {
   const fetchPosts = async () => {
     const token = getToken();
     try {
-      const { data } = await axios.get("/api/post/posts-for-admin", {
+      const { data } = await axios.get("/api/post/posts", {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -40,7 +40,7 @@ export default function Posts() {
     try {
       const answer = window.confirm("Are you sure?");
       if (!answer) return;
-      const { data } = await axios.delete(`/post/${post._id}`, {
+      const { data } = await axios.delete(`/api/post/post/${post._id}`, {
         headers: {
           authorization: "Bearer " + token,
         },
@@ -82,7 +82,9 @@ export default function Posts() {
           />
 
           <PostsList
-            posts={posts?.filter((p) => p.title)}
+            posts={posts?.filter((p) =>
+              p.title.toLowerCase().includes(keyword)
+            )}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
           />

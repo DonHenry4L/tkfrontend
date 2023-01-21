@@ -26,6 +26,7 @@ import SubscriberNavbar from "../pages/admin/nav/SubscriberNavbar";
 // import SearchMovies from "../components/admin/SearchMovies";
 // import SubscriberComment from "../components/admin/comment/SubscriberComment";
 import { getToken } from "../utils/helper";
+import RoutesWithUserChatComponent from "../E_commerce/Pages/user/RoutesWithUserChatComponent";
 
 export default function SubscriberNavigator() {
   const [loading, setLoading] = useState(false);
@@ -35,13 +36,12 @@ export default function SubscriberNavigator() {
   const isSubscriber = authInfo.profile?.role === "Subscriber";
 
   const getCurrentSubscriber = async () => {
-
     const token = getToken();
-const config = {
-  headers: {
-    authorization: "Bearer " + token,
-  },
-};
+    const config = {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    };
     try {
       const { data } = await axios.get("/api/subscriber", config);
       console.log(data);
@@ -89,20 +89,55 @@ const config = {
             <Route path="/tksarl_signIn" element={<ChatSignIn />} />
             <Route path="/tksarl_signUp" element={<ChatSignUp />} />
             <Route path="/user/profile" element={<ProfilePage />} />
+
+            <Route element={<RoutesWithUserChatComponent />}>
             <Route path="/user/my-orders" element={<UserOrdersPage />} />
             <Route
               path="/user/order-details/:id"
               element={<UserOrderDetailsPage />}
             />
-            <Route path="/user/cart-details" element={<UserCartDetailsPage />} />
+            <Route
+              path="/user/cart-details"
+              element={<UserCartDetailsPage />}
+            />
 
             <Route path="/shop" element={<HomePage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/product-list" element={<ProductListPage />} />
             <Route
+              path="/product-list/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery"
+              element={<ProductListPage />}
+            />
+            <Route
+              path="/product-list/category/:categoryName/search/:searchQuery/:pageNumParam"
+              element={<ProductListPage />}
+            />
+            <Route
               path="/product-details/:id"
               element={<ProductDetailsPage />}
             />
+            </Route>
+            
 
             {/* 
             <Route path="/search" element={<SearchMovies />} />

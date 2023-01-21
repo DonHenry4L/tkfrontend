@@ -16,7 +16,7 @@ const CommentForm = ({ comment, setComment, handleSubmit, loading }) => {
         onChange={(e) => setComment(e.target.value)}
         placeholder="Write a comment..."
         rows="4"
-        disabled={authInfo === null && authInfo?.token === ""}
+        disabled={authInfo === null && authInfo?.profile?.token === ""}
         maxLength={200}
       />
       <Button

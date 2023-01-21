@@ -8,14 +8,13 @@ import { useEffect, useState } from "react";
 const OrdersPageComponent = ({ getOrders }) => {
   const [orders, setOrders] = useState([]);
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getOrders()
       .then((orders) => setOrders(orders))
       .catch((er) =>
-      // dispatch(logout())
+        // dispatch(logout())
         console.log(
           er.response.data.message ? er.response.data.message : er.response.data
         )
@@ -43,11 +42,7 @@ const OrdersPageComponent = ({ getOrders }) => {
               <tr key={idx}>
                 <td>{idx + 1}</td>
                 <td>
-                  {order.user !== null ? (
-                    <>
-                      {order.user.username} 
-                    </>
-                  ) : null}
+                  {order.user !== null ? <>{order.user.username}</> : null}
                 </td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.orderTotal.cartSubtotal}</td>

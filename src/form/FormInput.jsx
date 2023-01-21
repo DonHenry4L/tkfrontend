@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FormInput({ name, label, placeholder, ...rest }) {
   return (
-    <div className="flex flex-col-reverse ">
+    <div className="flex flex-col-reverse register__input">
       <input
         id={name}
         name={name}
